@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FlatController {
 
     @Autowired
-    FlatService flatService;
+    private FlatService flatService;
 
     @GetMapping
     public FlatEntity getDefaultFlat()

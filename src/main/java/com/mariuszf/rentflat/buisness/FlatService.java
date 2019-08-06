@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 public class FlatService {
 
     public FlatEntity createDefaultFlat() {
-        return this.createFlat(123, 123.1, 4);
+        return this.createFlat(251251, 123.1, 4);
     }
 
     public FlatEntity createFlat(int cost, double totalSurface, int roomsAmount) {
