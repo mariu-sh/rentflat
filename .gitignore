@@ -1,3 +1,7 @@
+### General ###
+.env
+
+### Common files ###
 HELP.md
 .gradle
 build/
