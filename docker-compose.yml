@@ -6,4 +6,9 @@ services:
       dockerfile: Dockerfile
       args:
         jar_path: $JAR_PATH
+  database:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
 
