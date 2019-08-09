@@ -4,6 +4,7 @@ package com.mariuszf.rentflat.buisness;
 import com.mariuszf.rentflat.web.FlatDTO;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "flat")
@@ -18,6 +19,8 @@ public class FlatEntity {
     private double totalSurface;
     @Column
     private int roomsAmount;
+
+    private List<RoomEntity> rooms;
 
     FlatEntity(int cost, double totalSurface, int roomsAmount) {
         this.cost = cost;
