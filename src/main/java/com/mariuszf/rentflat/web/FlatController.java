@@ -1,6 +1,5 @@
 package com.mariuszf.rentflat.web;
 
-import com.mariuszf.rentflat.buisness.FlatEntity;
 import com.mariuszf.rentflat.buisness.FlatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
