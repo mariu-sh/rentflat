@@ -3,10 +3,9 @@ package com.mariuszf.rentflat.web;
 import com.mariuszf.rentflat.buisness.FlatEntity;
 import com.mariuszf.rentflat.buisness.FlatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/flat")
@@ -16,14 +15,19 @@ public class FlatController {
     private FlatService flatService;
 
     @GetMapping
-    public FlatDTO getDefaultFlat()
-    {
-        return flatService.createDefaultFlat();
+    public List<FlatDTO> getFlats() {
+        return flatService.getFlats();
     }
 
-    @GetMapping("/create")
-    public FlatDTO createSomeFlat() {
-        return flatService.createFlat(1234, 123.0, 11);
+    @GetMapping("/{id}")
+    public FlatDTO getFlatById(@PathVariable Long id) {
+        return flatService.getFlatById(id);
+    }
+
+    @PostMapping("/create")
+    public FlatDTO createSomeFlat(@RequestBody CreateFlatDTO createFlatDTO)
+    {
+        return flatService.createFlat(createFlatDTO);
     }
 
 }

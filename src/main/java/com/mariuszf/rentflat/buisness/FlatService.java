@@ -1,9 +1,14 @@
 package com.mariuszf.rentflat.buisness;
 
 import com.mariuszf.rentflat.database.FlatRepository;
+import com.mariuszf.rentflat.web.CreateFlatDTO;
 import com.mariuszf.rentflat.web.FlatDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FlatService {
@@ -15,13 +20,24 @@ public class FlatService {
         this.flatRepository = flatRepository;
     }
 
-    public FlatDTO createDefaultFlat() {
-        return this.createFlat(251251, 123.1, 4);
+    public FlatDTO createFlat(CreateFlatDTO createFlatDTO) {
+        return createFlat(createFlatDTO.getCost(), createFlatDTO.getTotalSurface(), createFlatDTO.getRoomsAmount());
     }
 
-    public FlatDTO createFlat(int cost, double totalSurface, int roomsAmount) {
+    private FlatDTO createFlat(int cost, double totalSurface, int roomsAmount) {
         FlatEntity flatEntity = new FlatEntity(cost, totalSurface, roomsAmount);
         return flatRepository.save(flatEntity).buildDTO();
     }
 
+    public FlatDTO getFlatById(Long id) {
+        Optional<FlatEntity> flatEntity = flatRepository.findById(id);
+        Optional<FlatDTO> flatDTO = flatEntity.map(FlatEntity::buildDTO);
+        return flatDTO.orElseThrow();
+    }
+
+    public List<FlatDTO> getFlats() {
+        return flatRepository.findAll().stream()
+                .map(FlatEntity::buildDTO)
+                .collect(Collectors.toList());
+    }
 }

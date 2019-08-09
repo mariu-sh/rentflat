@@ -25,6 +25,9 @@ public class FlatEntity {
         this.roomsAmount = roomsAmount;
     }
 
+    public FlatEntity() {
+    }
+
     public FlatDTO buildDTO(){
         return new FlatDTO(cost, totalSurface, roomsAmount);
     }
