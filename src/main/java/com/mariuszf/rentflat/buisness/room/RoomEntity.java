@@ -1,6 +1,6 @@
-package com.mariuszf.rentflat.buisness;
+package com.mariuszf.rentflat.buisness.room;
 
-import com.mariuszf.rentflat.web.RoomDTO;
+import com.mariuszf.rentflat.web.room.RoomDTO;
 
 import javax.persistence.*;
 

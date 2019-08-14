@@ -1,4 +1,4 @@
-package com.mariuszf.rentflat.web;
+package com.mariuszf.rentflat.web.room;
 
 public class RoomDTO {
 

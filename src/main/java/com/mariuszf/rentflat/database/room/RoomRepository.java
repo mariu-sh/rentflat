@@ -1,6 +1,6 @@
-package com.mariuszf.rentflat.database;
+package com.mariuszf.rentflat.database.room;
 
-import com.mariuszf.rentflat.buisness.RoomEntity;
+import com.mariuszf.rentflat.buisness.room.RoomEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

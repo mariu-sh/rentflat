@@ -1,6 +1,6 @@
-package com.mariuszf.rentflat.database;
+package com.mariuszf.rentflat.database.flat;
 
-import com.mariuszf.rentflat.buisness.FlatEntity;
+import com.mariuszf.rentflat.buisness.flat.FlatEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

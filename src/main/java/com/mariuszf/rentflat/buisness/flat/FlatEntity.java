@@ -1,7 +1,8 @@
-package com.mariuszf.rentflat.buisness;
+package com.mariuszf.rentflat.buisness.flat;
 
 
-import com.mariuszf.rentflat.web.FlatDTO;
+import com.mariuszf.rentflat.buisness.room.RoomEntity;
+import com.mariuszf.rentflat.web.flat.FlatDTO;
 
 import javax.persistence.*;
 import java.util.List;

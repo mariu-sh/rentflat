@@ -1,4 +1,4 @@
-package com.mariuszf.rentflat.web;
+package com.mariuszf.rentflat.web.flat;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

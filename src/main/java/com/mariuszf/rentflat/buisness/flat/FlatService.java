@@ -1,9 +1,9 @@
-package com.mariuszf.rentflat.buisness;
+package com.mariuszf.rentflat.buisness.flat;
 
-import com.mariuszf.rentflat.database.FlatRepository;
-import com.mariuszf.rentflat.web.CreateFlatDTO;
-import com.mariuszf.rentflat.web.FlatDTO;
-import com.mariuszf.rentflat.web.FlatNotFoundException;
+import com.mariuszf.rentflat.database.flat.FlatRepository;
+import com.mariuszf.rentflat.web.flat.CreateFlatDTO;
+import com.mariuszf.rentflat.web.flat.FlatDTO;
+import com.mariuszf.rentflat.web.flat.FlatNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
