@@ -7,7 +7,7 @@ services:
       args:
         jar_path: $JAR_PATH
     ports:
-      - "8080:8080"
+      - "${BACKEND_PORT}:8080"
     networks:
       backend-network:
         ipv4_address: $BACKEND_IP

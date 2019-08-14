@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_IP:0.0.0.0}:${DB_PORT:5432}/${DB_NAME:postgresdb}
+    username: ${DB_USER:postgresuser}
+    password: ${DB_PASSWORD:postgrespassword}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
