@@ -21,8 +21,6 @@ public class FlatEntity {
     @Column
     private int roomsAmount;
 
-    private List<RoomEntity> rooms;
-
     FlatEntity(int cost, double totalSurface, int roomsAmount) {
         this.cost = cost;
         this.totalSurface = totalSurface;

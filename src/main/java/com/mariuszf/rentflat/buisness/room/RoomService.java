@@ -1,17 +1,24 @@
 package com.mariuszf.rentflat.buisness.room;
 
 import com.mariuszf.rentflat.database.room.RoomRepository;
+import com.mariuszf.rentflat.web.room.CreateRoomDTO;
 import com.mariuszf.rentflat.web.room.RoomDTO;
 import com.mariuszf.rentflat.web.room.RoomNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class RoomService {
 
-    @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    public RoomService(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
+    }
 
     public List<RoomDTO> getRooms() {
         return roomRepository.findAll().stream()
@@ -23,5 +30,14 @@ public class RoomService {
         return roomRepository.findById(id)
                 .map(RoomEntity::buildDTO)
                 .orElseThrow(RoomNotFoundException::new);
+    }
+
+    public RoomDTO createRoom(CreateRoomDTO createRoomDTO) {
+        return createRoom(createRoomDTO.getSize(), createRoomDTO.getPeopleAmount(), createRoomDTO.getCost());
+    }
+
+    private RoomDTO createRoom(double size, int peopleAmount, double cost) {
+        RoomEntity roomEntity = new RoomEntity(size, peopleAmount, cost);
+        return roomRepository.save(roomEntity).buildDTO();
     }
 }

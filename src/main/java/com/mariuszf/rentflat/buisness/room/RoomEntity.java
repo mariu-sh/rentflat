@@ -10,17 +10,17 @@ public class RoomEntity {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
     @Column
     private double size;
     @Column
-    private int people;
-    @Column
     private double cost;
+    @Column
+    private int peopleAmount;
 
-    public RoomEntity(double size, int people, double cost) {
+    public RoomEntity(double size, int peopleAmount, double cost) {
         this.size = size;
-        this.people = people;
+        this.peopleAmount = peopleAmount;
         this.cost = cost;
     }
 
@@ -28,10 +28,10 @@ public class RoomEntity {
     }
 
     public RoomDTO buildDTO() {
-        return new RoomDTO(size, people, cost);
+        return new RoomDTO(id, size, peopleAmount, cost);
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -39,8 +39,8 @@ public class RoomEntity {
         return size;
     }
 
-    public int getPeople() {
-        return people;
+    public int getPeopleAmount() {
+        return peopleAmount;
     }
 
     public double getCost() {

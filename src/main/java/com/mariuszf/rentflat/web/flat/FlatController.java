@@ -24,7 +24,7 @@ public class FlatController {
     }
 
     @PostMapping("/create")
-    public FlatDTO createSomeFlat(@RequestBody CreateFlatDTO createFlatDTO)
+    public FlatDTO createFlat(@RequestBody CreateFlatDTO createFlatDTO)
     {
         return flatService.createFlat(createFlatDTO);
     }

@@ -1,21 +1,15 @@
 package com.mariuszf.rentflat.web.room;
 
-public class RoomDTO {
+public class CreateRoomDTO {
 
-    private final long id;
     private double size;
     private int peopleAmount;
     private double cost;
 
-    public RoomDTO(long id, double size, int peopleAmount, double cost) {
-        this.id = id;
+    public CreateRoomDTO(double size, int peopleAmount, double cost) {
         this.size = size;
         this.peopleAmount = peopleAmount;
         this.cost = cost;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public double getSize() {
