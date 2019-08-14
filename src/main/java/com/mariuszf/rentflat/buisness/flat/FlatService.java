@@ -27,7 +27,7 @@ public class FlatService {
         return createFlat(createFlatDTO.getCost(), createFlatDTO.getTotalSurface(), createFlatDTO.getRoomsAmount());
     }
 
-    private FlatDTO createFlat(int cost, double totalSurface, int roomsAmount) {
+    private FlatDTO createFlat(double cost, double totalSurface, int roomsAmount) {
         FlatEntity flatEntity = new FlatEntity(cost, totalSurface, roomsAmount);
         return flatRepository.save(flatEntity).buildDTO();
     }

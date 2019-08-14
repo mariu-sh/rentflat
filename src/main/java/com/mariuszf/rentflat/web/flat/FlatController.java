@@ -30,7 +30,7 @@ public class FlatController {
     }
 
     @PutMapping("/update/{id}")
-    public FlatDTO updateFlatById(@PathVariable Long id, UpdateFlatDTO updateFlatDTO) {
+    public FlatDTO updateFlatById(@PathVariable Long id, @RequestBody UpdateFlatDTO updateFlatDTO) {
         return flatService.updateFlatById(id, updateFlatDTO);
     }
 

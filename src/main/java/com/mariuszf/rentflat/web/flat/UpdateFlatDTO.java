@@ -2,7 +2,7 @@ package com.mariuszf.rentflat.web.flat;
 
 public class UpdateFlatDTO {
 
-    private final int cost;
+    private final double cost;
     private final double totalSurface;
     private final int roomsAmount;
 
@@ -12,7 +12,7 @@ public class UpdateFlatDTO {
         this.roomsAmount = roomsAmount;
     }
 
-    public int getCost() {
+    public double getCost() {
         return cost;
     }
 

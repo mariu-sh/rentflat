@@ -3,11 +3,11 @@ package com.mariuszf.rentflat.web.flat;
 public class FlatDTO {
 
     private final long id;
-    private final int cost;
+    private final double cost;
     private final double totalSurface;
     private final int roomsAmount;
 
-    public FlatDTO(long id, int cost, double totalSurface, int roomsAmount) {
+    public FlatDTO(long id, double cost, double totalSurface, int roomsAmount) {
         this.id = id;
         this.cost = cost;
         this.totalSurface = totalSurface;
@@ -18,7 +18,7 @@ public class FlatDTO {
         return id;
     }
 
-    public int getCost() {
+    public double getCost() {
         return cost;
     }
 

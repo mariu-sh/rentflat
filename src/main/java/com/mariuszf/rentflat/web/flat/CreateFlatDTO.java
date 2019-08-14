@@ -1,11 +1,11 @@
 package com.mariuszf.rentflat.web.flat;
 
 public class CreateFlatDTO {
-    private int cost;
+    private double cost;
     private double totalSurface;
     private int roomsAmount;
 
-    public int getCost() {
+    public double getCost() {
         return cost;
     }
 

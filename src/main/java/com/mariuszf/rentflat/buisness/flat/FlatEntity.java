@@ -1,11 +1,9 @@
 package com.mariuszf.rentflat.buisness.flat;
 
 
-import com.mariuszf.rentflat.buisness.room.RoomEntity;
 import com.mariuszf.rentflat.web.flat.FlatDTO;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "flat")
@@ -15,13 +13,13 @@ public class FlatEntity {
     @GeneratedValue
     private Long id;
     @Column
-    private int cost;
+    private double cost;
     @Column
     private double totalSurface;
     @Column
     private int roomsAmount;
 
-    FlatEntity(int cost, double totalSurface, int roomsAmount) {
+    FlatEntity(double cost, double totalSurface, int roomsAmount) {
         this.cost = cost;
         this.totalSurface = totalSurface;
         this.roomsAmount = roomsAmount;
@@ -34,7 +32,7 @@ public class FlatEntity {
         return new FlatDTO(id, cost, totalSurface, roomsAmount);
     }
 
-    public int getCost() {
+    public double getCost() {
         return cost;
     }
 
@@ -46,7 +44,7 @@ public class FlatEntity {
         return roomsAmount;
     }
 
-    public void setCost(int cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
