@@ -51,4 +51,10 @@ public class FlatService {
         flatEntity.setCost(updateFlatDTO.getCost());
         return flatRepository.save(flatEntity).buildDTO();
     }
+
+    public void deleteFlatById(Long id) {
+        flatRepository.delete(
+                flatRepository.findById(id).orElseThrow(FlatNotFoundException::new)
+        );
+    }
 }

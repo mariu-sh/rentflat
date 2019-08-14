@@ -35,4 +35,9 @@ public class FlatController {
 
     }
 
+    @DeleteMapping("/delete/{id}")
+    public void deleteFlatById(@PathVariable Long id) {
+        flatService.deleteFlatById(id);
+    }
+
 }
