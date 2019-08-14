@@ -4,6 +4,8 @@ import com.mariuszf.rentflat.database.flat.FlatRepository;
 import com.mariuszf.rentflat.web.flat.CreateFlatDTO;
 import com.mariuszf.rentflat.web.flat.FlatDTO;
 import com.mariuszf.rentflat.web.flat.FlatNotFoundException;
+import com.mariuszf.rentflat.web.flat.UpdateFlatDTO;
+import com.mariuszf.rentflat.web.room.UpdateRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +42,13 @@ public class FlatService {
         return flatRepository.findAll().stream()
                 .map(FlatEntity::buildDTO)
                 .collect(Collectors.toList());
+    }
+
+    public FlatDTO updateFlatById(Long id, UpdateFlatDTO updateFlatDTO) {
+        FlatEntity flatEntity = flatRepository.findById(id).orElseThrow(FlatNotFoundException::new);
+        flatEntity.setTotalSurface(updateFlatDTO.getTotalSurface());
+        flatEntity.setRoomsAmount(updateFlatDTO.getRoomsAmount());
+        flatEntity.setCost(updateFlatDTO.getCost());
+        return flatRepository.save(flatEntity).buildDTO();
     }
 }

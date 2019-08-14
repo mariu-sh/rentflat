@@ -13,6 +13,12 @@ public class FlatController {
     @Autowired
     private FlatService flatService;
 
+    @PostMapping("/create")
+    public FlatDTO createFlat(@RequestBody CreateFlatDTO createFlatDTO)
+    {
+        return flatService.createFlat(createFlatDTO);
+    }
+
     @GetMapping
     public List<FlatDTO> getFlats() {
         return flatService.getFlats();
@@ -23,10 +29,10 @@ public class FlatController {
         return flatService.getFlatById(id);
     }
 
-    @PostMapping("/create")
-    public FlatDTO createFlat(@RequestBody CreateFlatDTO createFlatDTO)
-    {
-        return flatService.createFlat(createFlatDTO);
+    @PutMapping("/update/{id}")
+    public FlatDTO updateFlatById(@PathVariable Long id, UpdateFlatDTO updateFlatDTO) {
+        return flatService.updateFlatById(id);
+
     }
 
 }

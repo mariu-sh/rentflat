@@ -45,4 +45,16 @@ public class FlatEntity {
     public int getRoomsAmount() {
         return roomsAmount;
     }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public void setTotalSurface(double totalSurface) {
+        this.totalSurface = totalSurface;
+    }
+
+    public void setRoomsAmount(int roomsAmount) {
+        this.roomsAmount = roomsAmount;
+    }
 }
