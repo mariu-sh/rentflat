@@ -49,4 +49,8 @@ public class RoomService {
         roomEntity.setCost(updateRoomDTO.getCost());
         return roomRepository.save(roomEntity).buildDTO();
     }
+
+    public void deleteRoomById(Long id) {
+        roomRepository.deleteById(id);
+    }
 }
