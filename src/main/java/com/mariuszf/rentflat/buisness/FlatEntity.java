@@ -29,7 +29,7 @@ public class FlatEntity {
     }
 
     public FlatDTO buildDTO(){
-        return new FlatDTO(cost, totalSurface, roomsAmount);
+        return new FlatDTO(id, cost, totalSurface, roomsAmount);
     }
 
     public int getCost() {
