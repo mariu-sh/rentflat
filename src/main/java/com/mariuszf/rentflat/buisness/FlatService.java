@@ -3,6 +3,7 @@ package com.mariuszf.rentflat.buisness;
 import com.mariuszf.rentflat.database.FlatRepository;
 import com.mariuszf.rentflat.web.CreateFlatDTO;
 import com.mariuszf.rentflat.web.FlatDTO;
+import com.mariuszf.rentflat.web.FlatNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class FlatService {
     public FlatDTO getFlatById(Long id) {
         Optional<FlatEntity> flatEntity = flatRepository.findById(id);
         Optional<FlatDTO> flatDTO = flatEntity.map(FlatEntity::buildDTO);
-        return flatDTO.orElseThrow();
+        return flatDTO.orElseThrow(FlatNotFoundException::new);
     }
 
     public List<FlatDTO> getFlats() {
