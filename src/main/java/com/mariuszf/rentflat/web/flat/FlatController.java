@@ -31,8 +31,7 @@ public class FlatController {
 
     @PutMapping("/update/{id}")
     public FlatDTO updateFlatById(@PathVariable Long id, UpdateFlatDTO updateFlatDTO) {
-        return flatService.updateFlatById(id);
-
+        return flatService.updateFlatById(id, updateFlatDTO);
     }
 
     @DeleteMapping("/delete/{id}")
