@@ -4,6 +4,7 @@ import com.mariuszf.rentflat.database.room.RoomRepository;
 import com.mariuszf.rentflat.web.room.CreateRoomDTO;
 import com.mariuszf.rentflat.web.room.RoomDTO;
 import com.mariuszf.rentflat.web.room.RoomNotFoundException;
+import com.mariuszf.rentflat.web.room.UpdateRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,15 @@ public class RoomService {
         this.roomRepository = roomRepository;
     }
 
+    public RoomDTO createRoom(CreateRoomDTO createRoomDTO) {
+        return createRoom(createRoomDTO.getSize(), createRoomDTO.getPeopleAmount(), createRoomDTO.getCost());
+    }
+
+    private RoomDTO createRoom(double size, int peopleAmount, double cost) {
+        RoomEntity roomEntity = new RoomEntity(size, peopleAmount, cost);
+        return roomRepository.save(roomEntity).buildDTO();
+    }
+
     public List<RoomDTO> getRooms() {
         return roomRepository.findAll().stream()
                 .map(RoomEntity::buildDTO)
@@ -32,12 +42,11 @@ public class RoomService {
                 .orElseThrow(RoomNotFoundException::new);
     }
 
-    public RoomDTO createRoom(CreateRoomDTO createRoomDTO) {
-        return createRoom(createRoomDTO.getSize(), createRoomDTO.getPeopleAmount(), createRoomDTO.getCost());
-    }
-
-    private RoomDTO createRoom(double size, int peopleAmount, double cost) {
-        RoomEntity roomEntity = new RoomEntity(size, peopleAmount, cost);
+    public RoomDTO updateRoomById(Long id, UpdateRoomDTO updateRoomDTO) {
+        RoomEntity roomEntity = roomRepository.findById(id).orElseThrow(RoomNotFoundException::new);
+        roomEntity.setSize(updateRoomDTO.getSize());
+        roomEntity.setPeopleAmount(updateRoomDTO.getPeopleAmount());
+        roomEntity.setCost(updateRoomDTO.getCost());
         return roomRepository.save(roomEntity).buildDTO();
     }
 }

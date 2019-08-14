@@ -46,4 +46,16 @@ public class RoomEntity {
     public double getCost() {
         return cost;
     }
+
+    public void setSize(double size) {
+        this.size = size;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public void setPeopleAmount(int peopleAmount) {
+        this.peopleAmount = peopleAmount;
+    }
 }

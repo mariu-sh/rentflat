@@ -13,6 +13,12 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
 
+
+    @PostMapping("/create")
+    public RoomDTO createRoom(@RequestBody CreateRoomDTO createRoomDTO) {
+        return roomService.createRoom(createRoomDTO);
+    }
+
     @GetMapping("/{id}")
     public RoomDTO getRoomById(@PathVariable long id) {
         return roomService.getRoomById(id);
@@ -23,9 +29,9 @@ public class RoomController {
         return roomService.getRooms();
     }
 
-    @PostMapping("/create")
-    public RoomDTO createRoom(@RequestBody CreateRoomDTO createRoomDTO) {
-        return roomService.createRoom(createRoomDTO);
+    @PutMapping("/update/{id}")
+    public RoomDTO updateRoomById(@PathVariable Long id, @RequestBody UpdateRoomDTO updateRoomDTO) {
+        return roomService.updateRoomById(id, updateRoomDTO);
     }
 
 }
