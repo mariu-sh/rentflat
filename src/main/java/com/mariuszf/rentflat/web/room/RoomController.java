@@ -14,7 +14,7 @@ public class RoomController {
     private RoomService roomService;
 
 
-    @PostMapping("/create")
+    @PostMapping
     public RoomDTO createRoom(@RequestBody CreateRoomDTO createRoomDTO) {
         return roomService.createRoom(createRoomDTO);
     }
@@ -29,12 +29,12 @@ public class RoomController {
         return roomService.getRooms();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public RoomDTO updateRoomById(@PathVariable Long id, @RequestBody UpdateRoomDTO updateRoomDTO) {
         return roomService.updateRoomById(id, updateRoomDTO);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteRoomById(@PathVariable Long id) {
          roomService.deleteRoomById(id);
     }

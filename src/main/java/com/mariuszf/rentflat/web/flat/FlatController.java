@@ -13,7 +13,7 @@ public class FlatController {
     @Autowired
     private FlatService flatService;
 
-    @PostMapping("/create")
+    @PostMapping
     public FlatDTO createFlat(@RequestBody CreateFlatDTO createFlatDTO)
     {
         return flatService.createFlat(createFlatDTO);
@@ -29,12 +29,12 @@ public class FlatController {
         return flatService.getFlatById(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public FlatDTO updateFlatById(@PathVariable Long id, @RequestBody UpdateFlatDTO updateFlatDTO) {
         return flatService.updateFlatById(id, updateFlatDTO);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteFlatById(@PathVariable Long id) {
         flatService.deleteFlatById(id);
     }
