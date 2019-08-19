@@ -19,7 +19,6 @@ build/
 .sts4-cache
 
 ### IntelliJ IDEA ###
->>>>>>> relation
 .idea/
 .vscode/
 
