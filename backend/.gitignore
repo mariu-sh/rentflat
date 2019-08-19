@@ -8,13 +8,3 @@ build/
 !gradle
 !**/src/main/**
 !**/src/test/**
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
-.vscode/

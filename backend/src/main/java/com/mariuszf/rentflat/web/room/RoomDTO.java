@@ -5,14 +5,12 @@ import com.mariuszf.rentflat.buisness.room.RoomEntity;
 public class RoomDTO {
 
     private final long id;
-    private double size;
-    private int peopleAmount;
+    private double surface;
     private double cost;
 
-    public RoomDTO(long id, double size, int peopleAmount, double cost) {
+    public RoomDTO(long id, double surface, double cost) {
         this.id = id;
-        this.size = size;
-        this.peopleAmount = peopleAmount;
+        this.surface = surface;
         this.cost = cost;
     }
 
@@ -20,12 +18,8 @@ public class RoomDTO {
         return id;
     }
 
-    public double getSize() {
-        return size;
-    }
-
-    public int getPeopleAmount() {
-        return peopleAmount;
+    public double getSurface() {
+        return surface;
     }
 
     public double getCost() {

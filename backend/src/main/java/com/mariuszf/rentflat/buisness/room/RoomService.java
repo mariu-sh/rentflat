@@ -22,20 +22,11 @@ public class RoomService {
     }
 
     public RoomDTO createRoom(CreateRoomDTO createRoomDTO) {
-<<<<<<< HEAD:backend/src/main/java/com/mariuszf/rentflat/buisness/room/RoomService.java
-        return createRoom(createRoomDTO.getSize(), createRoomDTO.getPeopleAmount(), createRoomDTO.getCost(),
-                createRoomDTO.getFlatId());
-    }
-
-    private RoomDTO createRoom(double size, int peopleAmount, double cost, Long flatId) {
-        RoomEntity roomEntity = new RoomEntity(size, peopleAmount, cost, flatId);
-=======
         return createRoom(createRoomDTO.getSurface(), createRoomDTO.getCost(), createRoomDTO.getFlatId());
     }
 
     private RoomDTO createRoom(double size, double cost, Long flatId) {
         RoomEntity roomEntity = new RoomEntity(size, cost, flatId);
->>>>>>> relation:backend/src/main/java/com/mariuszf/rentflat/buisness/room/RoomService.java
         return roomRepository.save(roomEntity).buildDTO();
     }
 

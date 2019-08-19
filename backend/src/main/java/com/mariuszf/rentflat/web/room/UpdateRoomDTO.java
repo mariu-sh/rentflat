@@ -2,22 +2,16 @@ package com.mariuszf.rentflat.web.room;
 
 public class UpdateRoomDTO {
 
-    private double size;
-    private int peopleAmount;
+    private double surface;
     private double cost;
 
-    public UpdateRoomDTO(double size, int peopleAmount, double cost) {
-        this.size = size;
-        this.peopleAmount = peopleAmount;
+    public UpdateRoomDTO(double surface, double cost) {
+        this.surface = surface;
         this.cost = cost;
     }
 
-    public double getSize() {
-        return size;
-    }
-
-    public int getPeopleAmount() {
-        return peopleAmount;
+    public double getSurface() {
+        return surface;
     }
 
     public double getCost() {
