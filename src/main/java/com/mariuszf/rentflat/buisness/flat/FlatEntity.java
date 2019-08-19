@@ -1,9 +1,15 @@
 package com.mariuszf.rentflat.buisness.flat;
 
 
+import com.mariuszf.rentflat.buisness.room.RoomEntity;
 import com.mariuszf.rentflat.web.flat.FlatDTO;
+import com.mariuszf.rentflat.web.room.RoomDTO;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "flat")
@@ -19,6 +25,9 @@ public class FlatEntity {
     @Column
     private int roomsAmount;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "flatId")
+    private Set<RoomEntity> rooms = new HashSet<RoomEntity>();
+
     FlatEntity(double cost, double totalSurface, int roomsAmount) {
         this.cost = cost;
         this.totalSurface = totalSurface;
@@ -29,7 +38,11 @@ public class FlatEntity {
     }
 
     public FlatDTO buildDTO(){
-        return new FlatDTO(id, cost, totalSurface, roomsAmount);
+        return new FlatDTO(id, cost, totalSurface, roomsAmount, buildRoomDTOList());
+    }
+
+    private List<RoomDTO> buildRoomDTOList() {
+        return rooms.stream().map(RoomEntity::buildDTO).collect(Collectors.toList());
     }
 
     public double getCost() {

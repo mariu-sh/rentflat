@@ -17,6 +17,8 @@ public class RoomEntity {
     private double cost;
     @Column
     private int peopleAmount;
+    @Column
+    private Long flatId;
 
     public RoomEntity(double size, int peopleAmount, double cost) {
         this.size = size;
