@@ -25,7 +25,7 @@ public class FlatEntity {
     @Column
     private int roomsAmount;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "flatId")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "flatId", cascade = CascadeType.ALL)
     private Set<RoomEntity> rooms = new HashSet<RoomEntity>();
 
     FlatEntity(double cost, double totalSurface, int roomsAmount) {

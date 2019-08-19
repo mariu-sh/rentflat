@@ -5,7 +5,6 @@ import com.mariuszf.rentflat.web.flat.CreateFlatDTO;
 import com.mariuszf.rentflat.web.flat.FlatDTO;
 import com.mariuszf.rentflat.web.flat.FlatNotFoundException;
 import com.mariuszf.rentflat.web.flat.UpdateFlatDTO;
-import com.mariuszf.rentflat.web.room.UpdateRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +45,7 @@ public class FlatService {
 
     public FlatDTO updateFlatById(Long id, UpdateFlatDTO updateFlatDTO) {
         FlatEntity flatEntity = flatRepository.findById(id).orElseThrow(FlatNotFoundException::new);
+//      TODO: Wrap it within flatEntity.update(UpdateFlatDTO updateFlatDTO) to not expose setters
         flatEntity.setTotalSurface(updateFlatDTO.getTotalSurface());
         flatEntity.setRoomsAmount(updateFlatDTO.getRoomsAmount());
         flatEntity.setCost(updateFlatDTO.getCost());
