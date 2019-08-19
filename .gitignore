@@ -24,9 +24,3 @@ build/
 >>>>>>> relation
 .idea/
 .vscode/
-
-backend/Dockerfile
-backend/build.gradle
-backend/gradlew
-backend/gradlew.bat
-backend/settings.gradle
