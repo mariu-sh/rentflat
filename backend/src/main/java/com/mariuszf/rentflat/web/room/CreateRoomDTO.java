@@ -8,7 +8,6 @@ public class CreateRoomDTO {
 
     public CreateRoomDTO(double surface, double cost, Long flatId) {
         this.surface = surface;
-        this.peopleAmount = peopleAmount;
         this.cost = cost;
         this.flatId = flatId;
     }
