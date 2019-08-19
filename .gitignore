@@ -1,3 +1,25 @@
+### General ###
+.env
+
+### Common files ###
+HELP.md
+.gradle
+build/
+!backend/gradle/wrapper/gradle-wrapper.jar
+!backend/src/main/**
+!backend/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+>>>>>>> relation
 .idea/
 .vscode/
 # NPM

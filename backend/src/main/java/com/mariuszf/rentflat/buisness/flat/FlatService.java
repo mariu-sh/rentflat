@@ -6,7 +6,6 @@ import com.mariuszf.rentflat.web.flat.CreateFlatDTO;
 import com.mariuszf.rentflat.web.flat.FlatDTO;
 import com.mariuszf.rentflat.web.flat.FlatNotFoundException;
 import com.mariuszf.rentflat.web.flat.UpdateFlatDTO;
-import com.mariuszf.rentflat.web.room.UpdateRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,11 @@ public class FlatService {
     }
 
     public FlatDTO createFlat(CreateFlatDTO createFlatDTO) {
+<<<<<<< HEAD:backend/src/main/java/com/mariuszf/rentflat/buisness/flat/FlatService.java
         return createFlat(createFlatDTO.getCost(), createFlatDTO.getTotalSurface());
+=======
+        return createFlat(createFlatDTO.getCost(), createFlatDTO.getSurface());
+>>>>>>> relation:backend/src/main/java/com/mariuszf/rentflat/buisness/flat/FlatService.java
     }
 
     private FlatDTO createFlat(double cost, double totalSurface) {
@@ -49,13 +52,20 @@ public class FlatService {
 
     public FlatDTO updateFlatById(Long id, UpdateFlatDTO updateFlatDTO) {
         FlatEntity flatEntity = flatRepository.findById(id).orElseThrow(FlatNotFoundException::new);
+<<<<<<< HEAD:backend/src/main/java/com/mariuszf/rentflat/buisness/flat/FlatService.java
         flatEntity.setSurface(updateFlatDTO.getSurface());
         flatEntity.setCost(updateFlatDTO.getCost());
+=======
+        flatEntity.update(updateFlatDTO);
+>>>>>>> relation:backend/src/main/java/com/mariuszf/rentflat/buisness/flat/FlatService.java
         return flatRepository.save(flatEntity).buildDTO();
     }
 
     public void deleteFlatById(Long id) {
+<<<<<<< HEAD:backend/src/main/java/com/mariuszf/rentflat/buisness/flat/FlatService.java
         roomService.deleteRoomsByFlatId(id);
+=======
+>>>>>>> relation:backend/src/main/java/com/mariuszf/rentflat/buisness/flat/FlatService.java
         flatRepository.deleteById(id);
     }
 }
