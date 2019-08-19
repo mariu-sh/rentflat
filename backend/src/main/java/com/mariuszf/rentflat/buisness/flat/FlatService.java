@@ -23,11 +23,11 @@ public class FlatService {
     }
 
     public FlatDTO createFlat(CreateFlatDTO createFlatDTO) {
-        return createFlat(createFlatDTO.getCost(), createFlatDTO.getTotalSurface(), createFlatDTO.getRoomsAmount());
+        return createFlat(createFlatDTO.getCost(), createFlatDTO.getSurface());
     }
 
-    private FlatDTO createFlat(double cost, double totalSurface, int roomsAmount) {
-        FlatEntity flatEntity = new FlatEntity(cost, totalSurface, roomsAmount);
+    private FlatDTO createFlat(double cost, double totalSurface) {
+        FlatEntity flatEntity = new FlatEntity(cost, totalSurface);
         return flatRepository.save(flatEntity).buildDTO();
     }
 
@@ -45,16 +45,11 @@ public class FlatService {
 
     public FlatDTO updateFlatById(Long id, UpdateFlatDTO updateFlatDTO) {
         FlatEntity flatEntity = flatRepository.findById(id).orElseThrow(FlatNotFoundException::new);
-//      TODO: Wrap it within flatEntity.update(UpdateFlatDTO updateFlatDTO) to not expose setters
-        flatEntity.setTotalSurface(updateFlatDTO.getTotalSurface());
-        flatEntity.setRoomsAmount(updateFlatDTO.getRoomsAmount());
-        flatEntity.setCost(updateFlatDTO.getCost());
+        flatEntity.update(updateFlatDTO);
         return flatRepository.save(flatEntity).buildDTO();
     }
 
     public void deleteFlatById(Long id) {
-        flatRepository.delete(
-                flatRepository.findById(id).orElseThrow(FlatNotFoundException::new)
-        );
+        flatRepository.deleteById(id);
     }
 }

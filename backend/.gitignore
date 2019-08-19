@@ -5,9 +5,9 @@
 HELP.md
 .gradle
 build/
-!backend/gradle/wrapper/gradle-wrapper.jar
-!backend/src/main/**
-!backend/src/test/**
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
 
 ### STS ###
 .apt_generated
@@ -34,8 +34,3 @@ out/
 
 ### VS Code ###
 .vscode/
-backend/Dockerfile
-backend/build.gradle
-backend/gradlew
-backend/gradlew.bat
-backend/settings.gradle

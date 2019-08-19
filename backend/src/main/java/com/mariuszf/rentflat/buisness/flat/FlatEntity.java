@@ -3,6 +3,7 @@ package com.mariuszf.rentflat.buisness.flat;
 
 import com.mariuszf.rentflat.buisness.room.RoomEntity;
 import com.mariuszf.rentflat.web.flat.FlatDTO;
+import com.mariuszf.rentflat.web.flat.UpdateFlatDTO;
 import com.mariuszf.rentflat.web.room.RoomDTO;
 
 import javax.persistence.*;
@@ -21,51 +22,45 @@ public class FlatEntity {
     @Column
     private double cost;
     @Column
-    private double totalSurface;
-    @Column
-    private int roomsAmount;
+    private double surface;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "flatId", cascade = CascadeType.ALL)
     private Set<RoomEntity> rooms = new HashSet<RoomEntity>();
 
-    FlatEntity(double cost, double totalSurface, int roomsAmount) {
+    FlatEntity(double cost, double surface) {
         this.cost = cost;
-        this.totalSurface = totalSurface;
-        this.roomsAmount = roomsAmount;
+        this.surface = surface;
     }
 
     public FlatEntity() {
     }
 
     public FlatDTO buildDTO(){
-        return new FlatDTO(id, cost, totalSurface, roomsAmount, buildRoomDTOList());
+        return new FlatDTO(id, cost, surface, buildRoomDTOList());
     }
 
     private List<RoomDTO> buildRoomDTOList() {
         return rooms.stream().map(RoomEntity::buildDTO).collect(Collectors.toList());
     }
 
+    public void update(UpdateFlatDTO updateFlatDTO) {
+        setCost(updateFlatDTO.getCost());
+        setSurface(updateFlatDTO.getCost());
+    }
+
     public double getCost() {
         return cost;
     }
 
-    public double getTotalSurface() {
-        return totalSurface;
-    }
-
-    public int getRoomsAmount() {
-        return roomsAmount;
+    public double getSurface() {
+        return surface;
     }
 
     public void setCost(double cost) {
         this.cost = cost;
     }
 
-    public void setTotalSurface(double totalSurface) {
-        this.totalSurface = totalSurface;
-    }
-
-    public void setRoomsAmount(int roomsAmount) {
-        this.roomsAmount = roomsAmount;
+    public void setSurface(double surface) {
+        this.surface = surface;
     }
 }
