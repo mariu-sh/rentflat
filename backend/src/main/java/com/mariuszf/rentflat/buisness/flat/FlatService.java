@@ -1,5 +1,6 @@
 package com.mariuszf.rentflat.buisness.flat;
 
+import com.mariuszf.rentflat.buisness.room.RoomService;
 import com.mariuszf.rentflat.database.flat.FlatRepository;
 import com.mariuszf.rentflat.web.flat.CreateFlatDTO;
 import com.mariuszf.rentflat.web.flat.FlatDTO;
@@ -17,18 +18,20 @@ import java.util.stream.Collectors;
 public class FlatService {
 
     private FlatRepository flatRepository;
+    private RoomService roomService;
 
     @Autowired
-    public FlatService(FlatRepository flatRepository) {
+    public FlatService(FlatRepository flatRepository, RoomService roomService) {
         this.flatRepository = flatRepository;
+        this.roomService = roomService;
     }
 
     public FlatDTO createFlat(CreateFlatDTO createFlatDTO) {
-        return createFlat(createFlatDTO.getCost(), createFlatDTO.getTotalSurface(), createFlatDTO.getRoomsAmount());
+        return createFlat(createFlatDTO.getCost(), createFlatDTO.getTotalSurface());
     }
 
-    private FlatDTO createFlat(double cost, double totalSurface, int roomsAmount) {
-        FlatEntity flatEntity = new FlatEntity(cost, totalSurface, roomsAmount);
+    private FlatDTO createFlat(double cost, double totalSurface) {
+        FlatEntity flatEntity = new FlatEntity(cost, totalSurface);
         return flatRepository.save(flatEntity).buildDTO();
     }
 
@@ -46,15 +49,13 @@ public class FlatService {
 
     public FlatDTO updateFlatById(Long id, UpdateFlatDTO updateFlatDTO) {
         FlatEntity flatEntity = flatRepository.findById(id).orElseThrow(FlatNotFoundException::new);
-        flatEntity.setTotalSurface(updateFlatDTO.getTotalSurface());
-        flatEntity.setRoomsAmount(updateFlatDTO.getRoomsAmount());
+        flatEntity.setSurface(updateFlatDTO.getSurface());
         flatEntity.setCost(updateFlatDTO.getCost());
         return flatRepository.save(flatEntity).buildDTO();
     }
 
     public void deleteFlatById(Long id) {
-        flatRepository.delete(
-                flatRepository.findById(id).orElseThrow(FlatNotFoundException::new)
-        );
+        roomService.deleteRoomsByFlatId(id);
+        flatRepository.deleteById(id);
     }
 }

@@ -22,11 +22,12 @@ public class RoomService {
     }
 
     public RoomDTO createRoom(CreateRoomDTO createRoomDTO) {
-        return createRoom(createRoomDTO.getSize(), createRoomDTO.getPeopleAmount(), createRoomDTO.getCost());
+        return createRoom(createRoomDTO.getSize(), createRoomDTO.getPeopleAmount(), createRoomDTO.getCost(),
+                createRoomDTO.getFlatId());
     }
 
-    private RoomDTO createRoom(double size, int peopleAmount, double cost) {
-        RoomEntity roomEntity = new RoomEntity(size, peopleAmount, cost);
+    private RoomDTO createRoom(double size, int peopleAmount, double cost, Long flatId) {
+        RoomEntity roomEntity = new RoomEntity(size, peopleAmount, cost, flatId);
         return roomRepository.save(roomEntity).buildDTO();
     }
 
@@ -51,8 +52,12 @@ public class RoomService {
     }
 
     public void deleteRoomById(Long id) {
-        roomRepository.delete(
-                roomRepository.findById(id).orElseThrow(RoomNotFoundException::new)
+        roomRepository.deleteById(id);
+    }
+
+    public void deleteRoomsByFlatId(Long id) {
+        roomRepository.deleteAll(
+                roomRepository.findAllByFlatIdIn(id)
         );
     }
 }

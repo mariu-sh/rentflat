@@ -18,10 +18,15 @@ public class RoomEntity {
     @Column
     private int peopleAmount;
 
-    public RoomEntity(double size, int peopleAmount, double cost) {
+    @Column
+    private Long flatId;
+
+
+    public RoomEntity(double size, int peopleAmount, double cost, Long flatId) {
         this.size = size;
         this.peopleAmount = peopleAmount;
         this.cost = cost;
+        this.flatId = flatId;
     }
 
     public RoomEntity() {
@@ -47,6 +52,10 @@ public class RoomEntity {
         return cost;
     }
 
+    public Long getFlatId() {
+        return flatId;
+    }
+
     public void setSize(double size) {
         this.size = size;
     }
@@ -57,5 +66,9 @@ public class RoomEntity {
 
     public void setPeopleAmount(int peopleAmount) {
         this.peopleAmount = peopleAmount;
+    }
+
+    public void setFlatId(Long flatId) {
+        this.flatId = flatId;
     }
 }

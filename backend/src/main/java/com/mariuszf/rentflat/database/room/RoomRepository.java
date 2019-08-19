@@ -8,4 +8,6 @@ import java.util.List;
 public interface RoomRepository extends CrudRepository<RoomEntity, Long> {
     @Override
     List<RoomEntity> findAll();
+
+    List<RoomEntity> findAllByFlatIdIn(Long id);
 }
