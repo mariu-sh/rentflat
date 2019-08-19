@@ -1,12 +1,6 @@
 ### General ###
-.env
-
-### Common files ###
+backend/.env
 HELP.md
-.gradle
-build/
-!backend/src/test/**
-
 
 ### IntelliJ IDEA ###
 .idea/
@@ -14,6 +8,7 @@ build/
 *.iml
 *.ipr
 out/
+
 .vscode/
 
 # dependencies
