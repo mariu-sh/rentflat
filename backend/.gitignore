@@ -1,5 +1,7 @@
 ### General ###
 .env
+.idea
+out/
 
 ### Common files ###
 HELP.md

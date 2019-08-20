@@ -1,15 +1,5 @@
 ### General ###
-backend/.env
 HELP.md
-
-### IntelliJ IDEA ###
-.idea/
-*.iws
-*.iml
-*.ipr
-out/
-
-.vscode/
 
 # dependencies
 node_modules/
