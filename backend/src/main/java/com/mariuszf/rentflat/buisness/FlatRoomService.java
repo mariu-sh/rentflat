@@ -8,11 +8,13 @@ import com.mariuszf.rentflat.web.flat.CreateFlatDTO;
 import com.mariuszf.rentflat.web.flat.FlatDTO;
 import com.mariuszf.rentflat.web.flat.UpdateFlatDTO;
 import com.mariuszf.rentflat.web.room.CreateRoomDTO;
+import com.mariuszf.rentflat.web.room.RoomCostDTO;
 import com.mariuszf.rentflat.web.room.RoomDTO;
 import com.mariuszf.rentflat.web.room.UpdateRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,10 +49,6 @@ public class FlatRoomService {
         flatService.deleteFlatById(id);
     }
 
-    public FlatDTO updateRoomById(Long id, UpdateFlatDTO updateFlatDTO) {
-        return flatService.updateFlatById(id, updateFlatDTO.getCost(), updateFlatDTO.getSurface());
-    }
-
     public RoomDTO createRoom(CreateRoomDTO createRoomDTO) {
         return createRoom(createRoomDTO.getSurface(), createRoomDTO.getFlatId());
     }
@@ -80,4 +78,17 @@ public class FlatRoomService {
         roomService.deleteRoomById(id);
     }
 
+    public RoomCostDTO getRoomCostById(Long id) {
+        double costPerSurface = flatService.getCostPerSurfaceById(roomService.getFlatIdForRoomById(id));
+        double roomCost = roomService.getRoomCostByIdAndCostPerSurface(id, costPerSurface);
+        return new RoomCostDTO(id, roomCost);
+    }
+
+    public List<RoomCostDTO> getRoomsCost() {
+        List<RoomCostDTO> roomCostDTOList = new ArrayList<>();
+        for (RoomDTO roomDTO: getRooms()) {
+            roomCostDTOList.add(getRoomCostById(roomDTO.getId()));
+        }
+        return roomCostDTOList;
+    }
 }

@@ -52,4 +52,12 @@ public class RoomService {
     public void saveEntity(RoomEntity roomEntity) {
         roomRepository.save(roomEntity);
     }
+
+    public long getFlatIdForRoomById(Long id) {
+        return getRoomEntityById(id).getFlatId();
+    }
+
+    public double getRoomCostByIdAndCostPerSurface(Long id, double costPerSurface) {
+        return getRoomById(id).getSurface() * costPerSurface;
+    }
 }

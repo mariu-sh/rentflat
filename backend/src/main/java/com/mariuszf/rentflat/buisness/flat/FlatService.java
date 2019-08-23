@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.mariuszf.rentflat.utils.Utils.roundWithPrecision;
+
 @Service
 public class FlatService {
 
@@ -67,5 +69,9 @@ public class FlatService {
 
     public void saveEntity(FlatEntity flatEntity) {
         flatRepository.save(flatEntity);
+    }
+
+    public double getCostPerSurfaceById(Long id) {
+        return roundWithPrecision(getFlatEntityById(id).getCostPerSurface(), 2);
     }
 }

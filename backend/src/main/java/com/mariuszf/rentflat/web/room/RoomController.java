@@ -38,4 +38,14 @@ public class RoomController {
     public void deleteRoomById(@PathVariable Long id) {
          flatRoomService.deleteRoomById(id);
     }
+
+    @GetMapping("/cost")
+    public List<RoomCostDTO> getRoomsCost() {
+        return flatRoomService.getRoomsCost();
+    }
+
+    @GetMapping("/{id}/cost")
+    public RoomCostDTO getRoomCostById(@PathVariable Long id) {
+        return flatRoomService.getRoomCostById(id);
+    }
 }

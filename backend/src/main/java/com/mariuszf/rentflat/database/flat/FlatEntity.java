@@ -34,6 +34,10 @@ public class FlatEntity {
     public FlatEntity() {
     }
 
+    public double getCostPerSurface() {
+        return cost/surface;
+    }
+
     public void addRoom(RoomEntity roomEntity) {
         this.roomEntityList.add(roomEntity);
         roomEntity.setFlatEntity(this);
