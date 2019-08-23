@@ -1,8 +1,5 @@
 package com.mariuszf.rentflat.database.room;
 
-import com.mariuszf.rentflat.web.room.RoomDTO;
-import com.mariuszf.rentflat.web.room.UpdateRoomDTO;
-
 import javax.persistence.*;
 
 @Entity
@@ -28,13 +25,9 @@ public class RoomEntity {
     public RoomEntity() {
     }
 
-    public RoomDTO buildDTO() {
-        return new RoomDTO(id, surface, cost);
-    }
-
-    public void update(UpdateRoomDTO updateRoomDTO) {
-        setCost(updateRoomDTO.getCost());
-        setSurface(updateRoomDTO.getSurface());
+    public void update(double cost, double surface) {
+        this.cost = cost;
+        this.surface = surface;
     }
 
     public long getId() {
@@ -47,13 +40,5 @@ public class RoomEntity {
 
     public double getCost() {
         return cost;
-    }
-
-    public void setSurface(double size) {
-        this.surface = size;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
     }
 }
