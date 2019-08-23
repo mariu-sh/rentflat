@@ -4,9 +4,9 @@ import com.mariuszf.rentflat.buisness.room.RoomService;
 import com.mariuszf.rentflat.database.flat.FlatEntity;
 import com.mariuszf.rentflat.database.flat.FlatRepository;
 import com.mariuszf.rentflat.database.room.RoomEntity;
-import com.mariuszf.rentflat.web.flat.FlatDTO;
+import com.mariuszf.rentflat.web.flat.dto.FlatDTO;
 import com.mariuszf.rentflat.web.flat.FlatNotFoundException;
-import com.mariuszf.rentflat.web.room.RoomDTO;
+import com.mariuszf.rentflat.web.room.dto.RoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

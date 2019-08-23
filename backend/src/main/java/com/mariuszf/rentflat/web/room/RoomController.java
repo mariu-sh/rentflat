@@ -1,6 +1,10 @@
 package com.mariuszf.rentflat.web.room;
 
 import com.mariuszf.rentflat.buisness.FlatRoomService;
+import com.mariuszf.rentflat.web.room.dto.CreateRoomDTO;
+import com.mariuszf.rentflat.web.room.dto.RoomCostDTO;
+import com.mariuszf.rentflat.web.room.dto.RoomDTO;
+import com.mariuszf.rentflat.web.room.dto.UpdateRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

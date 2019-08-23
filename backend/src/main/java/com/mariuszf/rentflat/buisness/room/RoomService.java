@@ -2,7 +2,7 @@ package com.mariuszf.rentflat.buisness.room;
 
 import com.mariuszf.rentflat.database.room.RoomEntity;
 import com.mariuszf.rentflat.database.room.RoomRepository;
-import com.mariuszf.rentflat.web.room.RoomDTO;
+import com.mariuszf.rentflat.web.room.dto.RoomDTO;
 import com.mariuszf.rentflat.web.room.RoomNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

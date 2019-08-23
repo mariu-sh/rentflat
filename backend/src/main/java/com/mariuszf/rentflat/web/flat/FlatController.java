@@ -1,6 +1,10 @@
 package com.mariuszf.rentflat.web.flat;
 
 import com.mariuszf.rentflat.buisness.FlatRoomService;
+import com.mariuszf.rentflat.web.flat.dto.CreateFlatDTO;
+import com.mariuszf.rentflat.web.flat.dto.FlatCostDTO;
+import com.mariuszf.rentflat.web.flat.dto.FlatDTO;
+import com.mariuszf.rentflat.web.flat.dto.UpdateFlatDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +41,11 @@ public class FlatController {
     @DeleteMapping("/{id}")
     public void deleteFlatById(@PathVariable Long id) {
         flatRoomService.deleteFlatById(id);
+    }
+
+    @GetMapping("/{id}/cost")
+    public FlatCostDTO getFlatCostById(@PathVariable Long id) {
+        return flatRoomService.getFlatCostById(id);
     }
 
 }

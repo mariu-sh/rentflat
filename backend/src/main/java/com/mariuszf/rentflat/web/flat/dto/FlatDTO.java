@@ -1,6 +1,6 @@
-package com.mariuszf.rentflat.web.flat;
+package com.mariuszf.rentflat.web.flat.dto;
 
-import com.mariuszf.rentflat.web.room.RoomDTO;
+import com.mariuszf.rentflat.web.room.dto.RoomDTO;
 
 import java.util.List;
 

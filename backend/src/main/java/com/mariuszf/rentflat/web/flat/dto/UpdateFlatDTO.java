@@ -1,4 +1,4 @@
-package com.mariuszf.rentflat.web.flat;
+package com.mariuszf.rentflat.web.flat.dto;
 
 public class UpdateFlatDTO {
 
