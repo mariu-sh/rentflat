@@ -1,6 +1,6 @@
 package com.mariuszf.rentflat.web.flat;
 
-import com.mariuszf.rentflat.buisness.flat.FlatService;
+import com.mariuszf.rentflat.buisness.FlatRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,32 +11,32 @@ import java.util.List;
 public class FlatController {
 
     @Autowired
-    private FlatService flatService;
+    private FlatRoomService flatRoomService;
 
     @PostMapping
     public FlatDTO createFlat(@RequestBody CreateFlatDTO createFlatDTO)
     {
-        return flatService.createFlat(createFlatDTO);
+        return flatRoomService.createFlat(createFlatDTO);
     }
 
     @GetMapping
     public List<FlatDTO> getFlats() {
-        return flatService.getFlatDTOList();
+        return flatRoomService.getFlats();
     }
 
     @GetMapping("/{id}")
     public FlatDTO getFlatById(@PathVariable Long id) {
-        return flatService.getFlatDTOById(id);
+        return flatRoomService.getFlatById(id);
     }
 
     @PutMapping("/{id}")
     public FlatDTO updateFlatById(@PathVariable Long id, @RequestBody UpdateFlatDTO updateFlatDTO) {
-        return flatService.updateFlatById(id, updateFlatDTO);
+        return flatRoomService.updateFlatById(id, updateFlatDTO);
     }
 
     @DeleteMapping("/{id}")
     public void deleteFlatById(@PathVariable Long id) {
-        flatService.deleteFlatById(id);
+        flatRoomService.deleteFlatById(id);
     }
 
 }

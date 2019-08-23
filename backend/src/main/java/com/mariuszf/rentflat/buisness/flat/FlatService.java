@@ -4,10 +4,8 @@ import com.mariuszf.rentflat.buisness.room.RoomService;
 import com.mariuszf.rentflat.database.flat.FlatEntity;
 import com.mariuszf.rentflat.database.flat.FlatRepository;
 import com.mariuszf.rentflat.database.room.RoomEntity;
-import com.mariuszf.rentflat.web.flat.CreateFlatDTO;
 import com.mariuszf.rentflat.web.flat.FlatDTO;
 import com.mariuszf.rentflat.web.flat.FlatNotFoundException;
-import com.mariuszf.rentflat.web.flat.UpdateFlatDTO;
 import com.mariuszf.rentflat.web.room.RoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,38 +25,30 @@ public class FlatService {
         this.roomService = roomService;
     }
 
-    private FlatEntity getFlatEntityById(Long id) {
+    public FlatEntity getFlatEntityById(Long id) {
         return flatRepository.findById(id).orElseThrow(FlatNotFoundException::new);
     }
 
-    public FlatDTO createFlat(CreateFlatDTO createFlatDTO) {
-        return createFlat(createFlatDTO.getCost(), createFlatDTO.getSurface());
-    }
-
-    private FlatDTO createFlat(double cost, double surface) {
+    public FlatDTO createFlat(double cost, double surface) {
         FlatEntity flatEntity = new FlatEntity(cost, surface);
-        flatRepository.save(flatEntity);
+        saveEntity(flatEntity);
         return buildDTO(flatEntity);
     }
 
-    public FlatDTO getFlatDTOById(Long id) {
+    public FlatDTO getFlatById(Long id) {
         return buildDTO(getFlatEntityById(id));
     }
 
-    public List<FlatDTO> getFlatDTOList() {
+    public List<FlatDTO> getFlats() {
         return flatRepository.findAll().stream()
                 .map(this::buildDTO)
                 .collect(Collectors.toList());
     }
 
-    public FlatDTO updateFlatById(Long id, UpdateFlatDTO updateFlatDTO) {
-        return updateFlatById(id, updateFlatDTO.getCost(), updateFlatDTO.getSurface());
-    }
-
-    private FlatDTO updateFlatById(Long id, double cost, double surface) {
+    public FlatDTO updateFlatById(Long id, double cost, double surface) {
         FlatEntity flatEntity = getFlatEntityById(id);
         flatEntity.update(cost, surface);
-        flatRepository.save(flatEntity);
+        saveEntity(flatEntity);
         return buildDTO(flatEntity);
     }
 
@@ -73,5 +63,9 @@ public class FlatService {
 
     private List<RoomDTO> buildRoomDTOList(List<RoomEntity> roomEntityList) {
         return roomEntityList.stream().map(roomService::buildDTO).collect(Collectors.toList());
+    }
+
+    public void saveEntity(FlatEntity flatEntity) {
+        flatRepository.save(flatEntity);
     }
 }
