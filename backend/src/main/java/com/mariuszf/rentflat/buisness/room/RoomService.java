@@ -53,9 +53,7 @@ public class RoomService {
         roomRepository.deleteById(id);
     }
 
-    public void deleteRoomsByFlatId(Long id) {
-        roomRepository.deleteAll(
-                roomRepository.findAllByFlatIdIn(id)
-        );
+    public RoomDTO buildDTO(RoomEntity roomEntity) {
+        return new RoomDTO(roomEntity.getId(), roomEntity.getSurface(), roomEntity.getCost());
     }
 }
