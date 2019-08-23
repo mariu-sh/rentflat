@@ -15,8 +15,8 @@ import com.mariuszf.rentflat.web.room.dto.UpdateRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FlatRoomService {
@@ -80,11 +80,10 @@ public class FlatRoomService {
     }
 
     public List<FlatCostDTO> getFlatsCost() {
-        List<FlatCostDTO> flatCostDTOList = new ArrayList<>();
-        for (FlatDTO flatDTO: getFlats()) {
-            flatCostDTOList.add(getFlatCostById(flatDTO.getId()));
-        }
-        return flatCostDTOList;
+        return getFlats().stream()
+                .map(FlatDTO::getId)
+                .map(this::getFlatCostById)
+                .collect(Collectors.toList());
     }
 
     public FlatCostDTO getFlatCostById(Long id) {
@@ -92,7 +91,7 @@ public class FlatRoomService {
     }
 
     private List<RoomCostDTO> getRoomsCostByFlatId(Long id) {
-        return getRoomsCostByRoomDTOList(getRoomsByFlatId(id));
+        return getRoomsCostByRooms(getRoomsByFlatId(id));
     }
 
     private List<RoomDTO> getRoomsByFlatId(Long id) {
@@ -100,20 +99,31 @@ public class FlatRoomService {
     }
 
     public List<RoomCostDTO> getRoomsCost() {
-        return getRoomsCostByRoomDTOList(getRooms());
+        return getRoomsCostByRooms(getRooms());
     }
 
-    private List<RoomCostDTO> getRoomsCostByRoomDTOList(List<RoomDTO> roomDTOList) {
-        List<RoomCostDTO> roomCostDTOList = new ArrayList<>();
-        for (RoomDTO roomDTO: roomDTOList) {
-            roomCostDTOList.add(getRoomCostById(roomDTO.getId()));
-        }
-        return roomCostDTOList;
+    private List<RoomCostDTO> getRoomsCostByRooms(List<RoomDTO> rooms) {
+        return rooms.stream()
+                .map(RoomDTO::getId)
+                .map(this::getRoomCostDTOById)
+                .collect(Collectors.toList());
     }
 
-    public RoomCostDTO getRoomCostById(Long id) {
-        double costPerSurface = flatService.getCostPerSurfaceById(roomService.getFlatIdForRoomById(id));
-        double roomCost = roomService.getRoomCostByIdAndCostPerSurface(id, costPerSurface);
-        return new RoomCostDTO(id, roomCost);
+    public RoomCostDTO getRoomCostDTOById(Long id) {
+        return new RoomCostDTO(id, getRoomCostValueById(id));
+    }
+
+    private double getRoomCostValueById(Long id) {
+        return roomService.getRoomCostByIdAndCostPerSurface(
+                id,
+                flatService.getCostPerSurfaceById(roomService.getFlatIdForRoomById(id))
+        );
+    }
+
+    public double getCommonPartSurfaceForFlatById(Long id) {
+        double roomsSurface = getRoomsByFlatId(id).stream()
+                .mapToDouble(RoomDTO::getSurface)
+                .sum();
+        return getFlatById(id).getSurface() - roomsSurface;
     }
 }

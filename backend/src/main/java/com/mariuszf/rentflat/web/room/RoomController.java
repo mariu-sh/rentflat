@@ -50,6 +50,6 @@ public class RoomController {
 
     @GetMapping("/{id}/cost")
     public RoomCostDTO getRoomCostById(@PathVariable Long id) {
-        return flatRoomService.getRoomCostById(id);
+        return flatRoomService.getRoomCostDTOById(id);
     }
 }
