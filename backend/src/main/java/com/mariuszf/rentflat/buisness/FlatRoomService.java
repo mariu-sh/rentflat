@@ -5,6 +5,7 @@ import com.mariuszf.rentflat.buisness.room.RoomService;
 import com.mariuszf.rentflat.database.flat.FlatEntity;
 import com.mariuszf.rentflat.database.room.RoomEntity;
 import com.mariuszf.rentflat.web.flat.dto.CreateFlatDTO;
+import com.mariuszf.rentflat.web.flat.dto.FlatCostDTO;
 import com.mariuszf.rentflat.web.flat.dto.FlatDTO;
 import com.mariuszf.rentflat.web.flat.dto.UpdateFlatDTO;
 import com.mariuszf.rentflat.web.room.dto.CreateRoomDTO;
@@ -78,17 +79,41 @@ public class FlatRoomService {
         roomService.deleteRoomById(id);
     }
 
+    public List<FlatCostDTO> getFlatsCost() {
+        List<FlatCostDTO> flatCostDTOList = new ArrayList<>();
+        for (FlatDTO flatDTO: getFlats()) {
+            flatCostDTOList.add(getFlatCostById(flatDTO.getId()));
+        }
+        return flatCostDTOList;
+    }
+
+    public FlatCostDTO getFlatCostById(Long id) {
+        return new FlatCostDTO(id, flatService.getFlatById(id).getCost(), getRoomsCostByFlatId(id));
+    }
+
+    private List<RoomCostDTO> getRoomsCostByFlatId(Long id) {
+        return getRoomsCostByRoomDTOList(getRoomsByFlatId(id));
+    }
+
+    private List<RoomDTO> getRoomsByFlatId(Long id) {
+        return getFlatById(id).getRooms();
+    }
+
+    public List<RoomCostDTO> getRoomsCost() {
+        return getRoomsCostByRoomDTOList(getRooms());
+    }
+
+    private List<RoomCostDTO> getRoomsCostByRoomDTOList(List<RoomDTO> roomDTOList) {
+        List<RoomCostDTO> roomCostDTOList = new ArrayList<>();
+        for (RoomDTO roomDTO: roomDTOList) {
+            roomCostDTOList.add(getRoomCostById(roomDTO.getId()));
+        }
+        return roomCostDTOList;
+    }
+
     public RoomCostDTO getRoomCostById(Long id) {
         double costPerSurface = flatService.getCostPerSurfaceById(roomService.getFlatIdForRoomById(id));
         double roomCost = roomService.getRoomCostByIdAndCostPerSurface(id, costPerSurface);
         return new RoomCostDTO(id, roomCost);
-    }
-
-    public List<RoomCostDTO> getRoomsCost() {
-        List<RoomCostDTO> roomCostDTOList = new ArrayList<>();
-        for (RoomDTO roomDTO: getRooms()) {
-            roomCostDTOList.add(getRoomCostById(roomDTO.getId()));
-        }
-        return roomCostDTOList;
     }
 }

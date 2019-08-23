@@ -43,6 +43,11 @@ public class FlatController {
         flatRoomService.deleteFlatById(id);
     }
 
+    @GetMapping("/cost")
+    public List<FlatCostDTO> getFlatsCost() {
+        return flatRoomService.getFlatsCost();
+    }
+
     @GetMapping("/{id}/cost")
     public FlatCostDTO getFlatCostById(@PathVariable Long id) {
         return flatRoomService.getFlatCostById(id);
