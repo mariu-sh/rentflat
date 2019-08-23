@@ -30,9 +30,9 @@ public class RoomService {
                 .collect(Collectors.toList());
     }
 
-    public RoomDTO updateRoomById(Long id, double cost, double surface) {
+    public RoomDTO updateRoomById(Long id, double surface) {
         RoomEntity roomEntity = getRoomEntityById(id);
-        roomEntity.update(cost, surface);
+        roomEntity.update(surface);
         roomRepository.save(roomEntity);
         return buildDTO(roomEntity);
     }
@@ -46,7 +46,7 @@ public class RoomService {
     }
 
     public RoomDTO buildDTO(RoomEntity roomEntity) {
-        return new RoomDTO(roomEntity.getId(), roomEntity.getSurface(), roomEntity.getCost());
+        return new RoomDTO(roomEntity.getId(), roomEntity.getSurface());
     }
 
     public void saveEntity(RoomEntity roomEntity) {

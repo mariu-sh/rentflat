@@ -52,12 +52,12 @@ public class FlatRoomService {
     }
 
     public RoomDTO createRoom(CreateRoomDTO createRoomDTO) {
-        return createRoom(createRoomDTO.getSurface(), createRoomDTO.getCost(), createRoomDTO.getFlatId());
+        return createRoom(createRoomDTO.getSurface(), createRoomDTO.getFlatId());
     }
 
-    private RoomDTO createRoom(double surface, double cost, Long flatId){
+    private RoomDTO createRoom(double surface, Long flatId){
         FlatEntity flatEntity = flatService.getFlatEntityById(flatId);
-        RoomEntity roomEntity = new RoomEntity(surface, cost, flatEntity);
+        RoomEntity roomEntity = new RoomEntity(surface, flatEntity);
         flatEntity.addRoom(roomEntity);
         roomService.saveEntity(roomEntity);
         flatService.saveEntity(flatEntity);
@@ -73,7 +73,7 @@ public class FlatRoomService {
     }
 
     public RoomDTO updateRoomById(Long id, UpdateRoomDTO updateRoomDTO) {
-        return roomService.updateRoomById(id, updateRoomDTO.getCost(), updateRoomDTO.getSurface());
+        return roomService.updateRoomById(id, updateRoomDTO.getSurface());
     }
 
     public void deleteRoomById(Long id) {

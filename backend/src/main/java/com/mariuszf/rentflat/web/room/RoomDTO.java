@@ -4,12 +4,10 @@ public class RoomDTO {
 
     private final long id;
     private double surface;
-    private double cost;
 
-    public RoomDTO(long id, double surface, double cost) {
+    public RoomDTO(long id, double surface) {
         this.id = id;
         this.surface = surface;
-        this.cost = cost;
     }
 
     public long getId() {
@@ -18,9 +16,5 @@ public class RoomDTO {
 
     public double getSurface() {
         return surface;
-    }
-
-    public double getCost() {
-        return cost;
     }
 }
