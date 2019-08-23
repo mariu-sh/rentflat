@@ -1,5 +1,7 @@
 package com.mariuszf.rentflat.database.room;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,7 +9,8 @@ import javax.persistence.*;
 public class RoomEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     private long id;
     @Column
     private double surface;

@@ -2,16 +2,19 @@ package com.mariuszf.rentflat.database.flat;
 
 
 import com.mariuszf.rentflat.database.room.RoomEntity;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "flat")
 public class FlatEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     private Long id;
     @Column
     private double cost;
@@ -19,9 +22,9 @@ public class FlatEntity {
     private double surface;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "flatId", cascade = CascadeType.ALL)
-    private List<RoomEntity> rooms = new ArrayList<>();
+    private List<RoomEntity> roomEntityList = new ArrayList<>();
 
-    FlatEntity(double cost, double surface) {
+    public FlatEntity(double cost, double surface) {
         this.cost = cost;
         this.surface = surface;
     }
@@ -34,19 +37,19 @@ public class FlatEntity {
         this.surface = surface;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public List<RoomEntity> getRoomEntityList() {
+        return roomEntityList;
+    }
+
     public double getCost() {
         return cost;
     }
 
     public double getSurface() {
         return surface;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
-
-    public void setSurface(double surface) {
-        this.surface = surface;
     }
 }
