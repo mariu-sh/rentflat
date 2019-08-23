@@ -21,12 +21,12 @@ public class FlatController {
 
     @GetMapping
     public List<FlatDTO> getFlats() {
-        return flatService.getFlats();
+        return flatService.getFlatDTOList();
     }
 
     @GetMapping("/{id}")
     public FlatDTO getFlatById(@PathVariable Long id) {
-        return flatService.getFlatById(id);
+        return flatService.getFlatDTOById(id);
     }
 
     @PutMapping("/{id}")

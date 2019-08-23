@@ -22,35 +22,43 @@ public class RoomService {
         this.roomRepository = roomRepository;
     }
 
+    private RoomEntity getRoomEntityById(Long id) {
+        return roomRepository.findById(id).orElseThrow(RoomNotFoundException::new);
+    }
+
     public RoomDTO createRoom(CreateRoomDTO createRoomDTO) {
         return createRoom(createRoomDTO.getSurface(), createRoomDTO.getCost(), createRoomDTO.getFlatId());
     }
 
     private RoomDTO createRoom(double size, double cost, Long flatId) {
         RoomEntity roomEntity = new RoomEntity(size, cost, flatId);
-        return roomRepository.save(roomEntity).buildDTO();
+        roomRepository.save(roomEntity);
+        return buildDTO(roomEntity);
     }
 
     public List<RoomDTO> getRooms() {
         return roomRepository.findAll().stream()
-                .map(RoomEntity::buildDTO)
+                .map(this::buildDTO)
                 .collect(Collectors.toList());
     }
 
     public RoomDTO getRoomById(long id) {
-        return roomRepository.findById(id)
-                .map(RoomEntity::buildDTO)
-                .orElseThrow(RoomNotFoundException::new);
+        return buildDTO(getRoomEntityById(id));
     }
 
     public RoomDTO updateRoomById(Long id, UpdateRoomDTO updateRoomDTO) {
-        RoomEntity roomEntity = roomRepository.findById(id).orElseThrow(RoomNotFoundException::new);
-        roomEntity.update(updateRoomDTO);
-        return roomRepository.save(roomEntity).buildDTO();
+        return updateRoomById(id, updateRoomDTO.getCost(), updateRoomDTO.getSurface());
+    }
+
+    private RoomDTO updateRoomById(Long id, double cost, double surface) {
+        RoomEntity roomEntity = getRoomEntityById(id);
+        roomEntity.update(cost, surface);
+        roomRepository.save(roomEntity);
+        return buildDTO(roomEntity);
     }
 
     public void deleteRoomById(Long id) {
-        roomRepository.deleteById(id);
+        roomRepository.delete(getRoomEntityById(id));
     }
 
     public RoomDTO buildDTO(RoomEntity roomEntity) {

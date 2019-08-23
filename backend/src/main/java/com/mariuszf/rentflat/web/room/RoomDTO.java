@@ -1,7 +1,5 @@
 package com.mariuszf.rentflat.web.room;
 
-import com.mariuszf.rentflat.buisness.room.RoomEntity;
-
 public class RoomDTO {
 
     private final long id;

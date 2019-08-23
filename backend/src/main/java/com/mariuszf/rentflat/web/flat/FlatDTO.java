@@ -9,17 +9,13 @@ public class FlatDTO {
     private final long id;
     private final double cost;
     private final double surface;
-    private final List<RoomDTO> rooms;
+    private final List<RoomDTO> roomDTOList;
 
-    public FlatDTO(long id, double cost, double surface, List<RoomDTO> rooms) {
+    public FlatDTO(long id, double cost, double surface, List<RoomDTO> roomDTOList) {
         this.id = id;
         this.cost = cost;
         this.surface = surface;
-        this.rooms = rooms;
-    }
-
-    public List<RoomDTO> getRooms() {
-        return rooms;
+        this.roomDTOList = roomDTOList;
     }
 
     public long getId() {
@@ -32,5 +28,9 @@ public class FlatDTO {
 
     public double getSurface() {
         return surface;
+    }
+
+    public List<RoomDTO> getRoomDTOList() {
+        return roomDTOList;
     }
 }
