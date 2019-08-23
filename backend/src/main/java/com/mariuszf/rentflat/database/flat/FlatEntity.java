@@ -16,12 +16,14 @@ public class FlatEntity {
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
     private Long id;
-    @Column
+
+    @Column(nullable = false)
     private double cost;
-    @Column
+
+    @Column(nullable = false)
     private double surface;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "flatId", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "flatEntity", orphanRemoval = true)
     private List<RoomEntity> roomEntityList = new ArrayList<>();
 
     public FlatEntity(double cost, double surface) {
@@ -30,6 +32,11 @@ public class FlatEntity {
     }
 
     public FlatEntity() {
+    }
+
+    public void addRoom(RoomEntity roomEntity) {
+        this.roomEntityList.add(roomEntity);
+        roomEntity.setFlatEntity(this);
     }
 
     public void update(double cost, double surface){

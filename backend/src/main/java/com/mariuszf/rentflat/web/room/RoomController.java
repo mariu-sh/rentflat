@@ -1,6 +1,6 @@
 package com.mariuszf.rentflat.web.room;
 
-import com.mariuszf.rentflat.buisness.room.RoomService;
+import com.mariuszf.rentflat.buisness.FlatRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,31 +11,31 @@ import java.util.List;
 public class RoomController {
 
     @Autowired
-    private RoomService roomService;
+    private FlatRoomService flatRoomService;
 
 
     @PostMapping
     public RoomDTO createRoom(@RequestBody CreateRoomDTO createRoomDTO) {
-        return roomService.createRoom(createRoomDTO);
+        return flatRoomService.createRoom(createRoomDTO);
     }
 
     @GetMapping("/{id}")
     public RoomDTO getRoomById(@PathVariable long id) {
-        return roomService.getRoomById(id);
+        return flatRoomService.getRoomById(id);
     }
 
     @GetMapping
     public List<RoomDTO> getRooms() {
-        return roomService.getRooms();
+        return flatRoomService.getRooms();
     }
 
     @PutMapping("/{id}")
     public RoomDTO updateRoomById(@PathVariable Long id, @RequestBody UpdateRoomDTO updateRoomDTO) {
-        return roomService.updateRoomById(id, updateRoomDTO);
+        return flatRoomService.updateRoomById(id, updateRoomDTO);
     }
 
     @DeleteMapping("/{id}")
     public void deleteRoomById(@PathVariable Long id) {
-         roomService.deleteRoomById(id);
+         flatRoomService.deleteRoomById(id);
     }
 }

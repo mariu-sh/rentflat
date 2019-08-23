@@ -1,5 +1,6 @@
 package com.mariuszf.rentflat.database.room;
 
+import com.mariuszf.rentflat.database.flat.FlatEntity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -12,17 +13,21 @@ public class RoomEntity {
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
     private long id;
-    @Column
-    private double surface;
-    @Column
-    private double cost;
-    @Column
-    private Long flatId;
 
-    public RoomEntity(double surface, double cost, Long flatId) {
+    @Column(nullable = false)
+    private double surface;
+
+    @Column(nullable = false)
+    private double cost;
+
+    @ManyToOne
+    @JoinColumn(name = "flat_id")
+    private FlatEntity flatEntity;
+
+    public RoomEntity(double surface, double cost, FlatEntity flatEntity) {
         this.surface = surface;
         this.cost = cost;
-        this.flatId = flatId;
+        this.flatEntity = flatEntity;
     }
 
     public RoomEntity() {
@@ -43,5 +48,25 @@ public class RoomEntity {
 
     public double getCost() {
         return cost;
+    }
+
+    public FlatEntity getFlatEntity() {
+        return flatEntity;
+    }
+
+    public Long getFlatId() {
+        return flatEntity.getId();
+    }
+
+    public void setSurface(double surface) {
+        this.surface = surface;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public void setFlatEntity(FlatEntity flatEntity) {
+        this.flatEntity = flatEntity;
     }
 }
