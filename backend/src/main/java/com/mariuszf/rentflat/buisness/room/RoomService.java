@@ -1,5 +1,6 @@
 package com.mariuszf.rentflat.buisness.room;
 
+import com.mariuszf.rentflat.database.room.RoomEntity;
 import com.mariuszf.rentflat.database.room.RoomRepository;
 import com.mariuszf.rentflat.web.room.CreateRoomDTO;
 import com.mariuszf.rentflat.web.room.RoomDTO;

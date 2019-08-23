@@ -1,4 +1,4 @@
-package com.mariuszf.rentflat.buisness.room;
+package com.mariuszf.rentflat.database.room;
 
 import com.mariuszf.rentflat.web.room.RoomDTO;
 import com.mariuszf.rentflat.web.room.UpdateRoomDTO;

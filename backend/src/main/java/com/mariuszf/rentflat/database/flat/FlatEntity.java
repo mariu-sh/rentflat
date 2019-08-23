@@ -1,16 +1,10 @@
-package com.mariuszf.rentflat.buisness.flat;
+package com.mariuszf.rentflat.database.flat;
 
 
-import com.mariuszf.rentflat.buisness.room.RoomEntity;
-import com.mariuszf.rentflat.web.flat.FlatDTO;
-import com.mariuszf.rentflat.web.flat.UpdateFlatDTO;
-import com.mariuszf.rentflat.web.room.RoomDTO;
+import com.mariuszf.rentflat.database.room.RoomEntity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Entity
 @Table(name = "flat")
@@ -25,7 +19,7 @@ public class FlatEntity {
     private double surface;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "flatId", cascade = CascadeType.ALL)
-    private Set<RoomEntity> rooms = new HashSet<RoomEntity>();
+    private List<RoomEntity> rooms = new ArrayList<>();
 
     FlatEntity(double cost, double surface) {
         this.cost = cost;
@@ -34,17 +28,10 @@ public class FlatEntity {
 
     public FlatEntity() {
     }
-    public FlatDTO buildDTO(){
-        return new FlatDTO(id, cost, surface, buildRoomDTOList());
-    }
 
-    private List<RoomDTO> buildRoomDTOList() {
-        return rooms.stream().map(RoomEntity::buildDTO).collect(Collectors.toList());
-    }
-
-    public void update(UpdateFlatDTO updateFlatDTO) {
-        setCost(updateFlatDTO.getCost());
-        setSurface(updateFlatDTO.getCost());
+    public void update(double cost, double surface){
+        this.cost = cost;
+        this.surface = surface;
     }
 
     public double getCost() {
