@@ -1,9 +1,9 @@
-package com.mariuszf.rentflat.buisness.room;
+package com.mariuszf.rentflat.buisness;
 
-import com.mariuszf.rentflat.database.room.RoomEntity;
-import com.mariuszf.rentflat.database.room.RoomRepository;
-import com.mariuszf.rentflat.web.room.RoomDTO;
-import com.mariuszf.rentflat.web.room.RoomNotFoundException;
+import com.mariuszf.rentflat.database.RoomEntity;
+import com.mariuszf.rentflat.database.RoomRepository;
+import com.mariuszf.rentflat.web.dto.RoomDTO;
+import com.mariuszf.rentflat.web.exception.RoomNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,32 +24,36 @@ public class RoomService {
         return roomRepository.findById(id).orElseThrow(RoomNotFoundException::new);
     }
 
-    public List<RoomDTO> getRooms() {
+    List<RoomDTO> getRooms() {
         return roomRepository.findAll().stream()
                 .map(this::buildDTO)
                 .collect(Collectors.toList());
     }
 
-    public RoomDTO updateRoomById(Long id, double cost, double surface) {
+    RoomDTO updateRoomById(Long id, double surface) {
         RoomEntity roomEntity = getRoomEntityById(id);
-        roomEntity.update(cost, surface);
-        roomRepository.save(roomEntity);
+        roomEntity.update(surface);
+        saveEntity(roomEntity);
         return buildDTO(roomEntity);
     }
 
-    public RoomDTO getRoomById(Long id) {
+    RoomDTO getRoomById(Long id) {
         return buildDTO(getRoomEntityById(id));
     }
 
-    public void deleteRoomById(Long id) {
+    void deleteRoomById(Long id) {
         roomRepository.delete(getRoomEntityById(id));
     }
 
-    public RoomDTO buildDTO(RoomEntity roomEntity) {
-        return new RoomDTO(roomEntity.getId(), roomEntity.getSurface(), roomEntity.getCost());
+    RoomDTO buildDTO(RoomEntity roomEntity) {
+        return new RoomDTO(roomEntity.getId(), roomEntity.getSurface());
     }
 
-    public void saveEntity(RoomEntity roomEntity) {
+    void saveEntity(RoomEntity roomEntity) {
         roomRepository.save(roomEntity);
+    }
+
+    double getRoomCostById(Long id) {
+        return getRoomEntityById(id).getCost();
     }
 }

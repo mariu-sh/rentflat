@@ -1,6 +1,5 @@
-package com.mariuszf.rentflat.database.room;
+package com.mariuszf.rentflat.database;
 
-import com.mariuszf.rentflat.database.flat.FlatEntity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -14,27 +13,34 @@ public class RoomEntity {
     @GenericGenerator(name="increment", strategy = "increment")
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 2)
     private double surface;
-
-    @Column(nullable = false)
-    private double cost;
 
     @ManyToOne
     @JoinColumn(name = "flat_id")
     private FlatEntity flatEntity;
 
-    public RoomEntity(double surface, double cost, FlatEntity flatEntity) {
+    public RoomEntity(double surface, FlatEntity flatEntity) {
         this.surface = surface;
-        this.cost = cost;
         this.flatEntity = flatEntity;
     }
 
     public RoomEntity() {
     }
 
-    public void update(double cost, double surface) {
-        this.cost = cost;
+    public double getCost(){
+        return getCostForSurface() + getCostForCommonPartSurface();
+    }
+
+    private double getCostForSurface(){
+        return flatEntity.getCostPerSurface() * getSurface();
+    }
+
+    private double getCostForCommonPartSurface() {
+        return flatEntity.getCommonPartCostPerRoom();
+    }
+
+    public void update(double surface) {
         this.surface = surface;
     }
 
@@ -44,10 +50,6 @@ public class RoomEntity {
 
     public double getSurface() {
         return surface;
-    }
-
-    public double getCost() {
-        return cost;
     }
 
     public FlatEntity getFlatEntity() {
@@ -60,10 +62,6 @@ public class RoomEntity {
 
     public void setSurface(double surface) {
         this.surface = surface;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
     }
 
     public void setFlatEntity(FlatEntity flatEntity) {

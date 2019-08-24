@@ -1,19 +1,19 @@
 package com.mariuszf.rentflat.buisness;
 
-import com.mariuszf.rentflat.buisness.flat.FlatService;
-import com.mariuszf.rentflat.buisness.room.RoomService;
-import com.mariuszf.rentflat.database.flat.FlatEntity;
-import com.mariuszf.rentflat.database.room.RoomEntity;
-import com.mariuszf.rentflat.web.flat.CreateFlatDTO;
-import com.mariuszf.rentflat.web.flat.FlatDTO;
-import com.mariuszf.rentflat.web.flat.UpdateFlatDTO;
-import com.mariuszf.rentflat.web.room.CreateRoomDTO;
-import com.mariuszf.rentflat.web.room.RoomDTO;
-import com.mariuszf.rentflat.web.room.UpdateRoomDTO;
+import com.mariuszf.rentflat.database.FlatEntity;
+import com.mariuszf.rentflat.database.RoomEntity;
+import com.mariuszf.rentflat.web.dto.*;
+import com.mariuszf.rentflat.web.dto.RoomCreateDTO;
+import com.mariuszf.rentflat.web.dto.RoomCostDTO;
+import com.mariuszf.rentflat.web.dto.RoomDTO;
+import com.mariuszf.rentflat.web.dto.RoomUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.mariuszf.rentflat.utils.Utils.roundWithPrecision;
 
 @Service
 public class FlatRoomService {
@@ -27,8 +27,8 @@ public class FlatRoomService {
         this.roomService = roomService;
     }
 
-    public FlatDTO createFlat(CreateFlatDTO createFlatDTO) {
-        return flatService.createFlat(createFlatDTO.getCost(), createFlatDTO.getSurface());
+    public FlatDTO createFlat(FlatCreateDTO flatCreateDTO) {
+        return flatService.createFlat(flatCreateDTO.getCost(), flatCreateDTO.getSurface());
     }
 
     public FlatDTO getFlatById(Long id) {
@@ -39,25 +39,21 @@ public class FlatRoomService {
         return flatService.getFlats();
     }
 
-    public FlatDTO updateFlatById(Long id, UpdateFlatDTO updateFlatDTO) {
-        return flatService.updateFlatById(id, updateFlatDTO.getCost(), updateFlatDTO.getSurface());
+    public FlatDTO updateFlatById(Long id, FlatUpdateDTO flatUpdateDTO) {
+        return flatService.updateFlatById(id, flatUpdateDTO.getCost(), flatUpdateDTO.getSurface());
     }
 
     public void deleteFlatById(Long id) {
         flatService.deleteFlatById(id);
     }
 
-    public FlatDTO updateRoomById(Long id, UpdateFlatDTO updateFlatDTO) {
-        return flatService.updateFlatById(id, updateFlatDTO.getCost(), updateFlatDTO.getSurface());
+    public RoomDTO createRoom(RoomCreateDTO roomCreateDTO) {
+        return createRoom(roomCreateDTO.getSurface(), roomCreateDTO.getFlatId());
     }
 
-    public RoomDTO createRoom(CreateRoomDTO createRoomDTO) {
-        return createRoom(createRoomDTO.getSurface(), createRoomDTO.getCost(), createRoomDTO.getFlatId());
-    }
-
-    private RoomDTO createRoom(double surface, double cost, Long flatId){
+    private RoomDTO createRoom(double surface, Long flatId){
         FlatEntity flatEntity = flatService.getFlatEntityById(flatId);
-        RoomEntity roomEntity = new RoomEntity(surface, cost, flatEntity);
+        RoomEntity roomEntity = new RoomEntity(surface, flatEntity);
         flatEntity.addRoom(roomEntity);
         roomService.saveEntity(roomEntity);
         flatService.saveEntity(flatEntity);
@@ -72,12 +68,49 @@ public class FlatRoomService {
         return roomService.getRooms();
     }
 
-    public RoomDTO updateRoomById(Long id, UpdateRoomDTO updateRoomDTO) {
-        return roomService.updateRoomById(id, updateRoomDTO.getCost(), updateRoomDTO.getSurface());
+    public RoomDTO updateRoomById(Long id, RoomUpdateDTO roomUpdateDTO) {
+        return roomService.updateRoomById(id, roomUpdateDTO.getSurface());
     }
 
     public void deleteRoomById(Long id) {
         roomService.deleteRoomById(id);
     }
 
+    public List<FlatCostDTO> getFlatsCost() {
+        return getFlats().stream()
+                .map(FlatDTO::getId)
+                .map(this::getFlatCostById)
+                .collect(Collectors.toList());
+    }
+
+    public FlatCostDTO getFlatCostById(Long id) {
+        return new FlatCostDTO(id, flatService.getFlatById(id).getCost(), getRoomsCostByFlatId(id));
+    }
+
+    private List<RoomCostDTO> getRoomsCostByFlatId(Long id) {
+        return getRoomsCostByRooms(getRoomsByFlatId(id));
+    }
+
+    private List<RoomDTO> getRoomsByFlatId(Long id) {
+        return getFlatById(id).getRooms();
+    }
+
+    public List<RoomCostDTO> getRoomsCost() {
+        return getRoomsCostByRooms(getRooms());
+    }
+
+    private List<RoomCostDTO> getRoomsCostByRooms(List<RoomDTO> rooms) {
+        return rooms.stream()
+                .map(RoomDTO::getId)
+                .map(this::getRoomCostDTOById)
+                .collect(Collectors.toList());
+    }
+
+    public RoomCostDTO getRoomCostDTOById(Long id) {
+        return new RoomCostDTO(id, getRoomCostValueById(id));
+    }
+
+    private double getRoomCostValueById(Long id) {
+        return roundWithPrecision(roomService.getRoomCostById(id), 2);
+    }
 }
