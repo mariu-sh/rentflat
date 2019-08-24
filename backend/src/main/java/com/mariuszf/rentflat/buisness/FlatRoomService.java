@@ -1,22 +1,19 @@
 package com.mariuszf.rentflat.buisness;
 
-import com.mariuszf.rentflat.buisness.flat.FlatService;
-import com.mariuszf.rentflat.buisness.room.RoomService;
-import com.mariuszf.rentflat.database.flat.FlatEntity;
-import com.mariuszf.rentflat.database.room.RoomEntity;
-import com.mariuszf.rentflat.web.flat.dto.CreateFlatDTO;
-import com.mariuszf.rentflat.web.flat.dto.FlatCostDTO;
-import com.mariuszf.rentflat.web.flat.dto.FlatDTO;
-import com.mariuszf.rentflat.web.flat.dto.UpdateFlatDTO;
-import com.mariuszf.rentflat.web.room.dto.CreateRoomDTO;
-import com.mariuszf.rentflat.web.room.dto.RoomCostDTO;
-import com.mariuszf.rentflat.web.room.dto.RoomDTO;
-import com.mariuszf.rentflat.web.room.dto.UpdateRoomDTO;
+import com.mariuszf.rentflat.database.FlatEntity;
+import com.mariuszf.rentflat.database.RoomEntity;
+import com.mariuszf.rentflat.web.dto.*;
+import com.mariuszf.rentflat.web.dto.RoomCreateDTO;
+import com.mariuszf.rentflat.web.dto.RoomCostDTO;
+import com.mariuszf.rentflat.web.dto.RoomDTO;
+import com.mariuszf.rentflat.web.dto.RoomUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.mariuszf.rentflat.utils.Utils.roundWithPrecision;
 
 @Service
 public class FlatRoomService {
@@ -30,8 +27,8 @@ public class FlatRoomService {
         this.roomService = roomService;
     }
 
-    public FlatDTO createFlat(CreateFlatDTO createFlatDTO) {
-        return flatService.createFlat(createFlatDTO.getCost(), createFlatDTO.getSurface());
+    public FlatDTO createFlat(FlatCreateDTO flatCreateDTO) {
+        return flatService.createFlat(flatCreateDTO.getCost(), flatCreateDTO.getSurface());
     }
 
     public FlatDTO getFlatById(Long id) {
@@ -42,16 +39,16 @@ public class FlatRoomService {
         return flatService.getFlats();
     }
 
-    public FlatDTO updateFlatById(Long id, UpdateFlatDTO updateFlatDTO) {
-        return flatService.updateFlatById(id, updateFlatDTO.getCost(), updateFlatDTO.getSurface());
+    public FlatDTO updateFlatById(Long id, FlatUpdateDTO flatUpdateDTO) {
+        return flatService.updateFlatById(id, flatUpdateDTO.getCost(), flatUpdateDTO.getSurface());
     }
 
     public void deleteFlatById(Long id) {
         flatService.deleteFlatById(id);
     }
 
-    public RoomDTO createRoom(CreateRoomDTO createRoomDTO) {
-        return createRoom(createRoomDTO.getSurface(), createRoomDTO.getFlatId());
+    public RoomDTO createRoom(RoomCreateDTO roomCreateDTO) {
+        return createRoom(roomCreateDTO.getSurface(), roomCreateDTO.getFlatId());
     }
 
     private RoomDTO createRoom(double surface, Long flatId){
@@ -71,8 +68,8 @@ public class FlatRoomService {
         return roomService.getRooms();
     }
 
-    public RoomDTO updateRoomById(Long id, UpdateRoomDTO updateRoomDTO) {
-        return roomService.updateRoomById(id, updateRoomDTO.getSurface());
+    public RoomDTO updateRoomById(Long id, RoomUpdateDTO roomUpdateDTO) {
+        return roomService.updateRoomById(id, roomUpdateDTO.getSurface());
     }
 
     public void deleteRoomById(Long id) {
@@ -114,16 +111,6 @@ public class FlatRoomService {
     }
 
     private double getRoomCostValueById(Long id) {
-        return roomService.getRoomCostByIdAndCostPerSurface(
-                id,
-                flatService.getCostPerSurfaceById(roomService.getFlatIdForRoomById(id))
-        );
-    }
-
-    public double getCommonPartSurfaceForFlatById(Long id) {
-        double roomsSurface = getRoomsByFlatId(id).stream()
-                .mapToDouble(RoomDTO::getSurface)
-                .sum();
-        return getFlatById(id).getSurface() - roomsSurface;
+        return roundWithPrecision(roomService.getRoomCostById(id), 2);
     }
 }

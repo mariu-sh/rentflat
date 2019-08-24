@@ -1,7 +1,6 @@
-package com.mariuszf.rentflat.database.flat;
+package com.mariuszf.rentflat.database;
 
 
-import com.mariuszf.rentflat.database.room.RoomEntity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -34,8 +33,27 @@ public class FlatEntity {
     public FlatEntity() {
     }
 
+    public double getCommonPartCostPerRoom() {
+        return getCommonPartCost() / getRoomsAmount();
+    }
+
+    public double getCommonPartCost() {
+        return getCostPerSurface()*getCommonPartSurface();
+    }
+
     public double getCostPerSurface() {
         return cost/surface;
+    }
+
+    public double getCommonPartSurface() {
+        double roomsSurface = getRoomEntityList().stream()
+                .mapToDouble(RoomEntity::getSurface)
+                .sum();
+        return getSurface() - roomsSurface;
+    }
+
+    public int getRoomsAmount() {
+        return getRoomEntityList().size();
     }
 
     public void addRoom(RoomEntity roomEntity) {

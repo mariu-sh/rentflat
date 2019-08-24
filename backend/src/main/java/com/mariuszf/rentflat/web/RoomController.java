@@ -1,10 +1,10 @@
-package com.mariuszf.rentflat.web.room;
+package com.mariuszf.rentflat.web;
 
 import com.mariuszf.rentflat.buisness.FlatRoomService;
-import com.mariuszf.rentflat.web.room.dto.CreateRoomDTO;
-import com.mariuszf.rentflat.web.room.dto.RoomCostDTO;
-import com.mariuszf.rentflat.web.room.dto.RoomDTO;
-import com.mariuszf.rentflat.web.room.dto.UpdateRoomDTO;
+import com.mariuszf.rentflat.web.dto.RoomCreateDTO;
+import com.mariuszf.rentflat.web.dto.RoomCostDTO;
+import com.mariuszf.rentflat.web.dto.RoomDTO;
+import com.mariuszf.rentflat.web.dto.RoomUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +19,8 @@ public class RoomController {
 
 
     @PostMapping
-    public RoomDTO createRoom(@RequestBody CreateRoomDTO createRoomDTO) {
-        return flatRoomService.createRoom(createRoomDTO);
+    public RoomDTO createRoom(@RequestBody RoomCreateDTO roomCreateDTO) {
+        return flatRoomService.createRoom(roomCreateDTO);
     }
 
     @GetMapping("/{id}")
@@ -34,8 +34,8 @@ public class RoomController {
     }
 
     @PutMapping("/{id}")
-    public RoomDTO updateRoomById(@PathVariable Long id, @RequestBody UpdateRoomDTO updateRoomDTO) {
-        return flatRoomService.updateRoomById(id, updateRoomDTO);
+    public RoomDTO updateRoomById(@PathVariable Long id, @RequestBody RoomUpdateDTO roomUpdateDTO) {
+        return flatRoomService.updateRoomById(id, roomUpdateDTO);
     }
 
     @DeleteMapping("/{id}")

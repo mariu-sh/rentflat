@@ -1,6 +1,6 @@
-package com.mariuszf.rentflat.web.flat.dto;
+package com.mariuszf.rentflat.web.dto;
 
-public class CreateFlatDTO {
+public class FlatCreateDTO {
     private double cost;
     private double surface;
 

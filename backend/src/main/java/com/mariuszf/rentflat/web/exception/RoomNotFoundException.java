@@ -1,4 +1,4 @@
-package com.mariuszf.rentflat.web.room;
+package com.mariuszf.rentflat.web.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

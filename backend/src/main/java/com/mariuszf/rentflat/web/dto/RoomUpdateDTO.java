@@ -1,10 +1,10 @@
-package com.mariuszf.rentflat.web.room.dto;
+package com.mariuszf.rentflat.web.dto;
 
-public class UpdateRoomDTO {
+public class RoomUpdateDTO {
 
     private double surface;
 
-    public UpdateRoomDTO(double surface) {
+    public RoomUpdateDTO(double surface) {
         this.surface = surface;
     }
 

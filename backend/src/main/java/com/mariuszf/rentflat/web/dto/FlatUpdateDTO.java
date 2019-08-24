@@ -1,11 +1,11 @@
-package com.mariuszf.rentflat.web.flat.dto;
+package com.mariuszf.rentflat.web.dto;
 
-public class UpdateFlatDTO {
+public class FlatUpdateDTO {
 
     private final double cost;
     private final double surface;
 
-    public UpdateFlatDTO(int cost, double surface) {
+    public FlatUpdateDTO(int cost, double surface) {
         this.cost = cost;
         this.surface = surface;
     }

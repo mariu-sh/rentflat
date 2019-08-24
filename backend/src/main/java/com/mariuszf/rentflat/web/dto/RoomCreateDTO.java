@@ -1,11 +1,11 @@
-package com.mariuszf.rentflat.web.room.dto;
+package com.mariuszf.rentflat.web.dto;
 
-public class CreateRoomDTO {
+public class RoomCreateDTO {
 
     private double surface;
     private Long flatId;
 
-    public CreateRoomDTO(double surface, Long flatId) {
+    public RoomCreateDTO(double surface, Long flatId) {
         this.surface = surface;
         this.flatId = flatId;
     }
