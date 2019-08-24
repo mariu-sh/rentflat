@@ -13,7 +13,7 @@ public class RoomEntity {
     @GenericGenerator(name="increment", strategy = "increment")
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 2)
     private double surface;
 
     @ManyToOne

@@ -16,10 +16,10 @@ public class FlatEntity {
     @GenericGenerator(name="increment", strategy = "increment")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 2)
     private double cost;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 2)
     private double surface;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "flatEntity", orphanRemoval = true)
