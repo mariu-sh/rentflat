@@ -54,7 +54,7 @@ public class FlatService {
     }
 
     void deleteFlatById(Long id) {
-        flatRepository.deleteById(id);
+        flatRepository.delete(getFlatEntityById(id));
     }
 
     private FlatDTO buildDTO(FlatEntity flatEntity){

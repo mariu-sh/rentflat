@@ -1,11 +1,12 @@
 package com.mariuszf.rentflat.web;
 
 import com.mariuszf.rentflat.buisness.FlatRoomService;
-import com.mariuszf.rentflat.web.dto.FlatCreateDTO;
 import com.mariuszf.rentflat.web.dto.FlatCostDTO;
+import com.mariuszf.rentflat.web.dto.FlatCreateDTO;
 import com.mariuszf.rentflat.web.dto.FlatDTO;
 import com.mariuszf.rentflat.web.dto.FlatUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public class FlatController {
     private FlatRoomService flatRoomService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(consumes = "application/json")
     public FlatDTO createFlat(@RequestBody FlatCreateDTO flatCreateDTO)
     {
         return flatRoomService.createFlat(flatCreateDTO);
