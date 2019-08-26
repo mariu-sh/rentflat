@@ -2,12 +2,15 @@ package com.mariuszf.rentflat.web.dto;
 
 public class FlatUpdateDTO {
 
-    private final double cost;
-    private final double surface;
+    private double cost;
+    private double surface;
 
     public FlatUpdateDTO(int cost, double surface) {
         this.cost = cost;
         this.surface = surface;
+    }
+
+    public FlatUpdateDTO() {
     }
 
     public double getCost() {
@@ -17,5 +20,7 @@ public class FlatUpdateDTO {
     public double getSurface() {
         return surface;
     }
+
+
 
 }
