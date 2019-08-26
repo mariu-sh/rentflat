@@ -2,10 +2,7 @@ package com.mariuszf.rentflat.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mariuszf.rentflat.buisness.FlatRoomService;
-import com.mariuszf.rentflat.web.dto.FlatCreateDTO;
-import com.mariuszf.rentflat.web.dto.FlatDTO;
-import com.mariuszf.rentflat.web.dto.FlatUpdateDTO;
-import com.mariuszf.rentflat.web.dto.RoomDTO;
+import com.mariuszf.rentflat.web.dto.*;
 import com.mariuszf.rentflat.web.exception.FlatNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +49,7 @@ public class FlatControllerTest {
         double cost = 132.23;
         double surface = 300.12;
 
-        FlatDTO flatDTO = new FlatDTO(123L, cost, surface, surface, new ArrayList<>());
+//        FlatDTO flatDTO = new FlatDTO(123L, cost, surface, surface, new ArrayList<>());
 
         String jsonCreateFlat = String.format(
                 "{\"cost\": %s, \"surface\": %s}",
@@ -61,15 +58,15 @@ public class FlatControllerTest {
 
         FlatCreateDTO flatCreateDTO = mapper.readValue(jsonCreateFlat, FlatCreateDTO.class);
 
-        given(flatRoomService.createFlat(flatCreateDTO)).willReturn(flatDTO);
+//        given(flatRoomService.createFlat(flatCreateDTO)).willReturn(flatDTO);
 
         MockHttpServletResponse response = mockMvc.perform(
                 post("/flat").contentType(MediaType.APPLICATION_JSON).content(jsonCreateFlat))
                 .andReturn().getResponse();
 
         assertThat(response.getStatus(), is(HttpStatus.CREATED.value()));
-        // TODO: Get to know WhyTF this is actually geting empty body???
-        //assertThat(response.getContentAsString(), is(mapper.writeValueAsString(flatDTO)));
+//        TODO: Get to know WhyTF this is actually geting empty body???
+//        assertThat(response.getContentAsString(), is(mapper.writeValueAsString(flatDTO)));
 
     }
 
@@ -108,7 +105,6 @@ public class FlatControllerTest {
 
         FlatDTO flat = new FlatDTO(flatId, flatCost, flatSurface, commonPartSurface, rooms);
 
-        // Test steps
         given(flatRoomService.getFlatById(flatId)).willReturn(flat);
 
         MockHttpServletResponse response = mockMvc.perform(get("/flat/" + flatId))
@@ -138,28 +134,28 @@ public class FlatControllerTest {
         double cost = 132.23;
         double surface = 300.12;
 
-        FlatDTO flatDTO = new FlatDTO(id, cost, surface, surface, new ArrayList<>());
+//        FlatDTO flatDTO = new FlatDTO(id, cost, surface, surface, new ArrayList<>());
 
         String jsonUpdateFlat = String.format(
                 "{\"cost\": %s, \"surface\": %s}",
                 Double.toString(cost),
                 Double.toString(surface));
 
-        given(flatRoomService.updateFlatById(
-                id,
-                mapper.readValue(jsonUpdateFlat, FlatUpdateDTO.class))
-              ).willReturn(flatDTO);
+//        given(flatRoomService.updateFlatById(
+//                id,
+//                mapper.readValue(jsonUpdateFlat, FlatUpdateDTO.class))
+//              ).willReturn(flatDTO);
 
         MockHttpServletResponse response = mockMvc.perform(
                 put("/flat/" + id).content(jsonUpdateFlat).contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
 
         assertThat(response.getStatus(), is(HttpStatus.OK.value()));
-        //assertThat(response.getContentAsString(), is(mapper.writeValueAsString(flatDTO)));
+//        assertThat(response.getContentAsString(), is(mapper.writeValueAsString(flatDTO)));
     }
 
     @Test
-    public void deleteFlatById() throws Exception {
+    public void deleteFlatByIdTest() throws Exception {
         long id = 123L;
 
         MockHttpServletResponse response = mockMvc.perform(
@@ -167,5 +163,44 @@ public class FlatControllerTest {
         ).andReturn().getResponse();
 
         assertThat(response.getStatus(), is(HttpStatus.OK.value()));
+    }
+
+    @Test
+    public void getFlatsCostTest() throws Exception {
+
+        List<FlatCostDTO> flatCostDTOList = new ArrayList<>();
+        flatCostDTOList.add(new FlatCostDTO(1L, 3000, new ArrayList<>()));
+
+        List<RoomCostDTO> roomCostDTOList = new ArrayList<>();
+        roomCostDTOList.add(new RoomCostDTO(1L, 1500.33));
+        roomCostDTOList.add(new RoomCostDTO(2L, 1200.25));
+
+        flatCostDTOList.add(new FlatCostDTO(2L, 2700.58, roomCostDTOList));
+
+        given(flatRoomService.getFlatsCost()).willReturn(flatCostDTOList);
+
+        MockHttpServletResponse response = mockMvc.perform(
+                get("/flat/cost")
+        ).andReturn().getResponse();
+
+        assertThat(response.getStatus(), is(HttpStatus.OK.value()));
+        assertThat(response.getContentAsString(), is(mapper.writeValueAsString(flatCostDTOList)));
+    }
+
+    @Test
+    public void getFlatCostByIdTest() throws Exception {
+        Long id = 122352336L;
+
+        FlatCostDTO flatCostDTO = new FlatCostDTO(1L, 31251.12, new ArrayList<>());
+
+        given(flatRoomService.getFlatCostById(id)).willReturn(flatCostDTO);
+
+        MockHttpServletResponse response = mockMvc.perform(
+                get("/flat/" + id + "/cost")
+        ).andReturn().getResponse();
+
+        assertThat(response.getStatus(), is(HttpStatus.OK.value()));
+        assertThat(response.getContentAsString(), is(mapper.writeValueAsString(flatCostDTO)));
+
     }
 }
