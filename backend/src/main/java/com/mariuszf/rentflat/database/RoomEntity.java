@@ -3,6 +3,8 @@ package com.mariuszf.rentflat.database;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 @Table(name = "room")
@@ -14,41 +16,41 @@ public class RoomEntity {
     private long id;
 
     @Column(nullable = false, precision = 2)
-    private double surface;
+    private BigDecimal surface;
 
     @ManyToOne
     @JoinColumn(name = "flat_id")
     private FlatEntity flatEntity;
 
     public RoomEntity(double surface, FlatEntity flatEntity) {
-        this.surface = surface;
+        this.surface = new BigDecimal(surface).setScale(2, RoundingMode.CEILING);
         this.flatEntity = flatEntity;
     }
 
     public RoomEntity() {
     }
 
-    public double getCost(){
-        return getCostForSurface() + getCostForCommonPartSurface();
+    public BigDecimal getCost(){
+        return getCostForSurface().add(getCostForCommonPartSurface());
     }
 
-    private double getCostForSurface(){
-        return flatEntity.getCostPerSurface() * getSurface();
+    private BigDecimal getCostForSurface(){
+        return flatEntity.getCostPerSurface().multiply(getSurface());
     }
 
-    private double getCostForCommonPartSurface() {
+    private BigDecimal getCostForCommonPartSurface() {
         return flatEntity.getCommonPartCostPerRoom();
     }
 
     public void update(double surface) {
-        this.surface = surface;
+        this.surface = new BigDecimal(surface).setScale(2, RoundingMode.CEILING);
     }
 
     public long getId() {
         return id;
     }
 
-    public double getSurface() {
+    public BigDecimal getSurface() {
         return surface;
     }
 
@@ -61,10 +63,6 @@ public class RoomEntity {
     }
 
     public void setSurface(double surface) {
-        this.surface = surface;
-    }
-
-    public void setFlatEntity(FlatEntity flatEntity) {
-        this.flatEntity = flatEntity;
+        this.surface = new BigDecimal(surface).setScale(2, RoundingMode.CEILING);
     }
 }

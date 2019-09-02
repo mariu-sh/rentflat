@@ -4,15 +4,13 @@ import com.mariuszf.rentflat.database.FlatEntity;
 import com.mariuszf.rentflat.database.FlatRepository;
 import com.mariuszf.rentflat.database.RoomEntity;
 import com.mariuszf.rentflat.web.dto.FlatDTO;
-import com.mariuszf.rentflat.web.exception.FlatNotFoundException;
 import com.mariuszf.rentflat.web.dto.RoomDTO;
+import com.mariuszf.rentflat.web.exception.FlatNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.mariuszf.rentflat.utils.Utils.roundWithPrecision;
 
 @Service
 public class FlatService {
@@ -28,7 +26,7 @@ public class FlatService {
 
     FlatDTO createFlat(double cost, double surface) {
         FlatEntity flatEntity = new FlatEntity(cost, surface);
-        saveEntity(flatEntity);
+        saveFlat(flatEntity);
         return buildDTO(flatEntity);
     }
 
@@ -45,8 +43,7 @@ public class FlatService {
     FlatDTO updateFlatById(Long id, double cost, double surface) {
         FlatEntity flatEntity = getFlatEntityById(id);
         flatEntity.update(cost, surface);
-        saveEntity(flatEntity);
-        return buildDTO(flatEntity);
+        return buildDTO(saveFlat(flatEntity));
     }
 
     FlatEntity getFlatEntityById(Long id) {
@@ -58,19 +55,18 @@ public class FlatService {
     }
 
     private FlatDTO buildDTO(FlatEntity flatEntity){
-        return new FlatDTO(flatEntity.getId(), flatEntity.getCost(), flatEntity.getSurface(),
-                flatEntity.getCommonPartSurface(), buildRoomDTOList(flatEntity.getRoomEntityList()));
+        return new FlatDTO(flatEntity.getId(),
+                flatEntity.getCost().doubleValue(),
+                flatEntity.getSurface().doubleValue(),
+                flatEntity.getCommonPartSurface().doubleValue(),
+                buildRoomDTOList(flatEntity.getRoomEntityList()));
     }
 
     private List<RoomDTO> buildRoomDTOList(List<RoomEntity> roomEntityList) {
         return roomEntityList.stream().map(roomService::buildDTO).collect(Collectors.toList());
     }
 
-    void saveEntity(FlatEntity flatEntity) {
-        flatRepository.save(flatEntity);
-    }
-
-    double getCostPerSurfaceById(Long id) {
-        return roundWithPrecision(getFlatEntityById(id).getCostPerSurface(), 2);
+    FlatEntity saveFlat(FlatEntity flatEntity) {
+        return flatRepository.save(flatEntity);
     }
 }

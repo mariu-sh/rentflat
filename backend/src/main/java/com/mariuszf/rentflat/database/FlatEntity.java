@@ -4,6 +4,8 @@ package com.mariuszf.rentflat.database;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,53 +19,51 @@ public class FlatEntity {
     private Long id;
 
     @Column(nullable = false, precision = 2)
-    private double cost;
+    private BigDecimal cost;
 
     @Column(nullable = false, precision = 2)
-    private double surface;
+    private BigDecimal surface;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "flatEntity", orphanRemoval = true)
     private List<RoomEntity> roomEntityList = new ArrayList<>();
 
     public FlatEntity(double cost, double surface) {
-        this.cost = cost;
-        this.surface = surface;
+        this.cost = new BigDecimal(cost).setScale(2, RoundingMode.CEILING);
+        this.surface = new BigDecimal(surface).setScale(2, RoundingMode.CEILING);
     }
 
     public FlatEntity() {
     }
 
-    public double getCommonPartCostPerRoom() {
-        return getCommonPartCost() / getRoomsAmount();
+    public BigDecimal getCommonPartCostPerRoom() {
+        return getCommonPartCost()
+                .divide(new BigDecimal(getRoomsAmount()),
+                        2, RoundingMode.CEILING);
     }
 
-    public double getCommonPartCost() {
-        return getCostPerSurface()*getCommonPartSurface();
+    public BigDecimal getCommonPartCost() {
+        return getCostPerSurface().multiply(getCommonPartSurface());
     }
 
-    public double getCostPerSurface() {
-        return cost/surface;
+    public BigDecimal getCostPerSurface() {
+        return cost.divide(surface, 2, RoundingMode.CEILING);
     }
 
-    public double getCommonPartSurface() {
+    public BigDecimal getCommonPartSurface() {
         double roomsSurface = getRoomEntityList().stream()
-                .mapToDouble(RoomEntity::getSurface)
+                .map(RoomEntity::getSurface)
+                .mapToDouble(BigDecimal::doubleValue)
                 .sum();
-        return getSurface() - roomsSurface;
+        return getSurface().subtract(new BigDecimal(roomsSurface));
     }
 
     public int getRoomsAmount() {
         return getRoomEntityList().size();
     }
 
-    public void addRoom(RoomEntity roomEntity) {
-        this.roomEntityList.add(roomEntity);
-        roomEntity.setFlatEntity(this);
-    }
-
     public void update(double cost, double surface){
-        this.cost = cost;
-        this.surface = surface;
+        this.cost = new BigDecimal(cost).setScale(2, RoundingMode.CEILING);
+        this.surface = new BigDecimal(surface).setScale(2, RoundingMode.CEILING);
     }
 
     public Long getId() {
@@ -74,11 +74,11 @@ public class FlatEntity {
         return roomEntityList;
     }
 
-    public double getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public double getSurface() {
+    public BigDecimal getSurface() {
         return surface;
     }
 }

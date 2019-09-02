@@ -1,19 +1,13 @@
 package com.mariuszf.rentflat.buisness;
 
-import com.mariuszf.rentflat.database.FlatEntity;
 import com.mariuszf.rentflat.database.RoomEntity;
 import com.mariuszf.rentflat.web.dto.*;
-import com.mariuszf.rentflat.web.dto.RoomCreateDTO;
-import com.mariuszf.rentflat.web.dto.RoomCostDTO;
-import com.mariuszf.rentflat.web.dto.RoomDTO;
-import com.mariuszf.rentflat.web.dto.RoomUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.mariuszf.rentflat.utils.Utils.roundWithPrecision;
 
 @Service
 public class FlatRoomService {
@@ -47,17 +41,17 @@ public class FlatRoomService {
         flatService.deleteFlatById(id);
     }
 
+    @Transactional
     public RoomDTO createRoom(RoomCreateDTO roomCreateDTO) {
         return createRoom(roomCreateDTO.getSurface(), roomCreateDTO.getFlatId());
     }
 
     private RoomDTO createRoom(double surface, Long flatId){
-        FlatEntity flatEntity = flatService.getFlatEntityById(flatId);
-        RoomEntity roomEntity = new RoomEntity(surface, flatEntity);
-        flatEntity.addRoom(roomEntity);
-        roomService.saveEntity(roomEntity);
-        flatService.saveEntity(flatEntity);
-        return roomService.buildDTO(roomEntity);
+        return roomService.buildDTO(
+                roomService.saveRoom(
+                        new RoomEntity(surface, flatService.getFlatEntityById(flatId))
+                )
+        );
     }
 
     public RoomDTO getRoomById(Long id) {
@@ -84,7 +78,9 @@ public class FlatRoomService {
     }
 
     public FlatCostDTO getFlatCostById(Long id) {
-        return new FlatCostDTO(id, flatService.getFlatById(id).getCost(), getRoomsCostByFlatId(id));
+        return new FlatCostDTO(id,
+                flatService.getFlatById(id).getCost().doubleValue(),
+                getRoomsCostByFlatId(id));
     }
 
     private List<RoomCostDTO> getRoomsCostByFlatId(Long id) {
@@ -111,6 +107,6 @@ public class FlatRoomService {
     }
 
     private double getRoomCostValueById(Long id) {
-        return roundWithPrecision(roomService.getRoomCostById(id), 2);
+        return roomService.getRoomCostById(id);
     }
 }
