@@ -10,6 +10,9 @@ public class RoomCreateDTO {
         this.flatId = flatId;
     }
 
+    public RoomCreateDTO() {
+    }
+
     public double getSurface() {
         return surface;
     }

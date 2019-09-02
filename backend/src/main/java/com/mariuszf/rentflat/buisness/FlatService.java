@@ -28,7 +28,7 @@ public class FlatService {
 
     FlatDTO createFlat(double cost, double surface) {
         FlatEntity flatEntity = new FlatEntity(cost, surface);
-        saveEntity(flatEntity);
+        saveFlat(flatEntity);
         return buildDTO(flatEntity);
     }
 
@@ -45,7 +45,7 @@ public class FlatService {
     FlatDTO updateFlatById(Long id, double cost, double surface) {
         FlatEntity flatEntity = getFlatEntityById(id);
         flatEntity.update(cost, surface);
-        saveEntity(flatEntity);
+        saveFlat(flatEntity);
         return buildDTO(flatEntity);
     }
 
@@ -66,8 +66,8 @@ public class FlatService {
         return roomEntityList.stream().map(roomService::buildDTO).collect(Collectors.toList());
     }
 
-    void saveEntity(FlatEntity flatEntity) {
-        flatRepository.save(flatEntity);
+    FlatEntity saveFlat(FlatEntity flatEntity) {
+        return flatRepository.save(flatEntity);
     }
 
     double getCostPerSurfaceById(Long id) {

@@ -1,6 +1,5 @@
 package com.mariuszf.rentflat.buisness;
 
-import com.mariuszf.rentflat.database.FlatEntity;
 import com.mariuszf.rentflat.database.RoomEntity;
 import com.mariuszf.rentflat.web.dto.*;
 import com.mariuszf.rentflat.web.dto.RoomCreateDTO;
@@ -52,12 +51,11 @@ public class FlatRoomService {
     }
 
     private RoomDTO createRoom(double surface, Long flatId){
-        FlatEntity flatEntity = flatService.getFlatEntityById(flatId);
-        RoomEntity roomEntity = new RoomEntity(surface, flatEntity);
-        flatEntity.addRoom(roomEntity);
-        roomService.saveEntity(roomEntity);
-        flatService.saveEntity(flatEntity);
-        return roomService.buildDTO(roomEntity);
+        return roomService.buildDTO(
+                roomService.saveRoom(
+                        new RoomEntity(surface, flatService.getFlatEntityById(flatId))
+                )
+        );
     }
 
     public RoomDTO getRoomById(Long id) {

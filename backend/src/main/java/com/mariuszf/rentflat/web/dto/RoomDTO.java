@@ -3,7 +3,7 @@ package com.mariuszf.rentflat.web.dto;
 public class RoomDTO {
 
     private final long id;
-    private double surface;
+    private final double surface;
 
     public RoomDTO(long id, double surface) {
         this.id = id;

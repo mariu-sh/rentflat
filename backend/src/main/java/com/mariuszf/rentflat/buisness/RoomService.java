@@ -33,7 +33,7 @@ public class RoomService {
     RoomDTO updateRoomById(Long id, double surface) {
         RoomEntity roomEntity = getRoomEntityById(id);
         roomEntity.update(surface);
-        saveEntity(roomEntity);
+        saveRoom(roomEntity);
         return buildDTO(roomEntity);
     }
 
@@ -49,8 +49,8 @@ public class RoomService {
         return new RoomDTO(roomEntity.getId(), roomEntity.getSurface());
     }
 
-    void saveEntity(RoomEntity roomEntity) {
-        roomRepository.save(roomEntity);
+    RoomEntity saveRoom(RoomEntity roomEntity) {
+        return roomRepository.save(roomEntity);
     }
 
     double getRoomCostById(Long id) {
