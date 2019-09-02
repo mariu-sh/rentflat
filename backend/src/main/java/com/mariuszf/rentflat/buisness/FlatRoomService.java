@@ -4,6 +4,7 @@ import com.mariuszf.rentflat.database.RoomEntity;
 import com.mariuszf.rentflat.web.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,6 +41,7 @@ public class FlatRoomService {
         flatService.deleteFlatById(id);
     }
 
+    @Transactional
     public RoomDTO createRoom(RoomCreateDTO roomCreateDTO) {
         return createRoom(roomCreateDTO.getSurface(), roomCreateDTO.getFlatId());
     }

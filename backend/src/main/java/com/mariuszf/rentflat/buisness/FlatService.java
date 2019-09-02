@@ -43,8 +43,7 @@ public class FlatService {
     FlatDTO updateFlatById(Long id, double cost, double surface) {
         FlatEntity flatEntity = getFlatEntityById(id);
         flatEntity.update(cost, surface);
-        saveFlat(flatEntity);
-        return buildDTO(flatEntity);
+        return buildDTO(saveFlat(flatEntity));
     }
 
     FlatEntity getFlatEntityById(Long id) {
