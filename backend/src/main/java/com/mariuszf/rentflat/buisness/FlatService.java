@@ -4,15 +4,13 @@ import com.mariuszf.rentflat.database.FlatEntity;
 import com.mariuszf.rentflat.database.FlatRepository;
 import com.mariuszf.rentflat.database.RoomEntity;
 import com.mariuszf.rentflat.web.dto.FlatDTO;
-import com.mariuszf.rentflat.web.exception.FlatNotFoundException;
 import com.mariuszf.rentflat.web.dto.RoomDTO;
+import com.mariuszf.rentflat.web.exception.FlatNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.mariuszf.rentflat.utils.Utils.roundWithPrecision;
 
 @Service
 public class FlatService {
@@ -58,8 +56,11 @@ public class FlatService {
     }
 
     private FlatDTO buildDTO(FlatEntity flatEntity){
-        return new FlatDTO(flatEntity.getId(), flatEntity.getCost(), flatEntity.getSurface(),
-                flatEntity.getCommonPartSurface(), buildRoomDTOList(flatEntity.getRoomEntityList()));
+        return new FlatDTO(flatEntity.getId(),
+                flatEntity.getCost().doubleValue(),
+                flatEntity.getSurface().doubleValue(),
+                flatEntity.getCommonPartSurface().doubleValue(),
+                buildRoomDTOList(flatEntity.getRoomEntityList()));
     }
 
     private List<RoomDTO> buildRoomDTOList(List<RoomEntity> roomEntityList) {
@@ -68,9 +69,5 @@ public class FlatService {
 
     FlatEntity saveFlat(FlatEntity flatEntity) {
         return flatRepository.save(flatEntity);
-    }
-
-    double getCostPerSurfaceById(Long id) {
-        return roundWithPrecision(getFlatEntityById(id).getCostPerSurface(), 2);
     }
 }

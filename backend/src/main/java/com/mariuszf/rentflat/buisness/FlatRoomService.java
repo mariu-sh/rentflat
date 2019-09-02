@@ -2,17 +2,11 @@ package com.mariuszf.rentflat.buisness;
 
 import com.mariuszf.rentflat.database.RoomEntity;
 import com.mariuszf.rentflat.web.dto.*;
-import com.mariuszf.rentflat.web.dto.RoomCreateDTO;
-import com.mariuszf.rentflat.web.dto.RoomCostDTO;
-import com.mariuszf.rentflat.web.dto.RoomDTO;
-import com.mariuszf.rentflat.web.dto.RoomUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.mariuszf.rentflat.utils.Utils.roundWithPrecision;
 
 @Service
 public class FlatRoomService {
@@ -82,7 +76,9 @@ public class FlatRoomService {
     }
 
     public FlatCostDTO getFlatCostById(Long id) {
-        return new FlatCostDTO(id, flatService.getFlatById(id).getCost(), getRoomsCostByFlatId(id));
+        return new FlatCostDTO(id,
+                flatService.getFlatById(id).getCost().doubleValue(),
+                getRoomsCostByFlatId(id));
     }
 
     private List<RoomCostDTO> getRoomsCostByFlatId(Long id) {
@@ -109,6 +105,6 @@ public class FlatRoomService {
     }
 
     private double getRoomCostValueById(Long id) {
-        return roundWithPrecision(roomService.getRoomCostById(id), 2);
+        return roomService.getRoomCostById(id);
     }
 }

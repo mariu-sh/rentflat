@@ -1,20 +1,22 @@
 package com.mariuszf.rentflat.web.dto;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class FlatDTO {
 
     private final long id;
-    private final double cost;
-    private final double surface;
-    private final double commonPartSurface;
+    private final BigDecimal cost;
+    private final BigDecimal surface;
+    private final BigDecimal commonPartSurface;
     private final List<RoomDTO> rooms;
 
     public FlatDTO(long id, double cost, double surface, double commonPartSurface, List<RoomDTO> rooms) {
         this.id = id;
-        this.cost = cost;
-        this.surface = surface;
-        this.commonPartSurface = commonPartSurface;
+        this.cost = new BigDecimal(cost).setScale(2, RoundingMode.CEILING);
+        this.surface = new BigDecimal(surface).setScale(2, RoundingMode.CEILING);
+        this.commonPartSurface = new BigDecimal(commonPartSurface).setScale(2, RoundingMode.CEILING);
         this.rooms = rooms;
     }
 
@@ -22,11 +24,11 @@ public class FlatDTO {
         return id;
     }
 
-    public double getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public double getSurface() {
+    public BigDecimal getSurface() {
         return surface;
     }
 
@@ -34,7 +36,7 @@ public class FlatDTO {
         return rooms;
     }
 
-    public double getCommonPartSurface() {
+    public BigDecimal getCommonPartSurface() {
         return commonPartSurface;
     }
 }

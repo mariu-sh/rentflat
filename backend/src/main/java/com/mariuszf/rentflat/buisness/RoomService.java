@@ -46,7 +46,7 @@ public class RoomService {
     }
 
     RoomDTO buildDTO(RoomEntity roomEntity) {
-        return new RoomDTO(roomEntity.getId(), roomEntity.getSurface());
+        return new RoomDTO(roomEntity.getId(), roomEntity.getSurface().doubleValue());
     }
 
     RoomEntity saveRoom(RoomEntity roomEntity) {
@@ -54,6 +54,6 @@ public class RoomService {
     }
 
     double getRoomCostById(Long id) {
-        return getRoomEntityById(id).getCost();
+        return getRoomEntityById(id).getCost().doubleValue();
     }
 }
