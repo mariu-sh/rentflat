@@ -1,42 +1,32 @@
 package com.mariuszf.rentflat.web.dto;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.List;
-
 public class FlatDTO {
 
-    private final long id;
-    private final BigDecimal cost;
-    private final BigDecimal surface;
-    private final BigDecimal commonPartSurface;
-    private final List<RoomDTO> rooms;
+    private final Long id;
+    private final String uuid;
+    private final Double surface;
+    private final Double cost;
 
-    public FlatDTO(long id, double cost, double surface, double commonPartSurface, List<RoomDTO> rooms) {
+    public FlatDTO(Long id, String uuid, Double surface, Double cost) {
         this.id = id;
-        this.cost = new BigDecimal(cost).setScale(2, RoundingMode.CEILING);
-        this.surface = new BigDecimal(surface).setScale(2, RoundingMode.CEILING);
-        this.commonPartSurface = new BigDecimal(commonPartSurface).setScale(2, RoundingMode.CEILING);
-        this.rooms = rooms;
+        this.uuid = uuid;
+        this.surface = surface;
+        this.cost = cost;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public BigDecimal getCost() {
-        return cost;
+    public String getUuid() {
+        return uuid;
     }
 
-    public BigDecimal getSurface() {
+    public Double getSurface() {
         return surface;
     }
 
-    public List<RoomDTO> getRooms() {
-        return rooms;
-    }
-
-    public BigDecimal getCommonPartSurface() {
-        return commonPartSurface;
+    public Double getCost() {
+        return cost;
     }
 }
