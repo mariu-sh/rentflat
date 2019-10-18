@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const Wrapper = styled.nav`
   background: #f3f3f3;
-  height: 100vh;
   width: 13%;
 `;
 
