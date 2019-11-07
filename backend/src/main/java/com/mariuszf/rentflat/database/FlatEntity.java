@@ -37,6 +37,9 @@ public class FlatEntity {
         this.roomEntityList = new ArrayList<>();
     }
 
+    public FlatEntity() {
+    }
+
     public FlatDTO toDto(){
         return new FlatDTO(id, uuid, surface, cost);
     }
@@ -59,6 +62,14 @@ public class FlatEntity {
 
     public List<RoomEntity> getRoomEntityList() {
         return roomEntityList;
+    }
+
+    public void setSurface(Double surface) {
+        this.surface = surface;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
     }
 
     @Override

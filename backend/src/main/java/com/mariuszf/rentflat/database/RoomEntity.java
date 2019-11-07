@@ -1,5 +1,6 @@
 package com.mariuszf.rentflat.database;
 
+import com.mariuszf.rentflat.web.dto.RoomDTO;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -47,6 +48,14 @@ public class RoomEntity {
 
     public FlatEntity getFlatEntity() {
         return flatEntity;
+    }
+
+    public void setSurface(Double surface) {
+        this.surface = surface;
+    }
+
+    public RoomDTO toDto(){
+        return new RoomDTO(id, uuid, surface, flatEntity.getId());
     }
 
     @Override
