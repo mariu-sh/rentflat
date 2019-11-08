@@ -1,9 +1,10 @@
 package com.mariuszf.rentflat.database;
 
+import com.mariuszf.rentflat.web.dto.RoomCostDTO;
 import com.mariuszf.rentflat.web.dto.RoomDTO;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -12,8 +13,7 @@ import java.util.UUID;
 public class RoomEntity {
 
     @Id
-    @GeneratedValue(generator="increment")
-    @GenericGenerator(name="increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -34,7 +34,15 @@ public class RoomEntity {
     public RoomEntity() {
     }
 
-    public long getId() {
+    private Double calculateRentCost(){
+        Double flatSurface = flatEntity.getSurface();
+        List<RoomEntity> roomEntities = flatEntity.getRoomEntityList();
+        Integer roomsAmount = roomEntities.size();
+        Double commonPartSurface = flatSurface - roomEntities.stream().mapToDouble(RoomEntity::getSurface).sum();
+        return (flatEntity.getCost()/flatSurface)*(commonPartSurface/roomsAmount + this.surface);
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -56,6 +64,10 @@ public class RoomEntity {
 
     public RoomDTO toDto(){
         return new RoomDTO(id, uuid, surface, flatEntity.getId());
+    }
+
+    public RoomCostDTO toCostDto(){
+        return new RoomCostDTO(id, uuid, calculateRentCost());
     }
 
     @Override

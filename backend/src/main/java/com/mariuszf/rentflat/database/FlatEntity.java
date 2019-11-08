@@ -1,22 +1,22 @@
 package com.mariuszf.rentflat.database;
 
 
+import com.mariuszf.rentflat.web.dto.FlatCostDTO;
 import com.mariuszf.rentflat.web.dto.FlatDTO;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "flat")
 public class FlatEntity {
 
     @Id
-    @GeneratedValue(generator="increment")
-    @GenericGenerator(name="increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -42,6 +42,16 @@ public class FlatEntity {
 
     public FlatDTO toDto(){
         return new FlatDTO(id, uuid, surface, cost);
+    }
+
+    public FlatCostDTO toCostDto(){
+        return new FlatCostDTO(id,
+                uuid,
+                cost,
+                roomEntityList.stream()
+                        .map(RoomEntity::toCostDto)
+                        .collect(Collectors.toList())
+        );
     }
 
     public Long getId() {

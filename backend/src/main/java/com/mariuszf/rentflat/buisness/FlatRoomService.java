@@ -64,7 +64,8 @@ public class FlatRoomService {
 
     public RoomDTO createRoom(Double surface, Long flatId){
         FlatEntity flatEntity = getFlatEntityById(flatId);
-        return roomRepository.save(new RoomEntity(surface, flatEntity)).toDto();
+        RoomEntity roomEntity = roomRepository.save(new RoomEntity(surface, flatEntity));
+        return roomEntity.toDto();
     }
 
     public RoomDTO updateRoomById(Long id, Double surface){
