@@ -1,7 +1,7 @@
 import React from "react";
 
 import styled from "styled-components";
-import Logo from "../../components/Navigation/Logo";
+import Logo from "../../components/organisms/Navigation/Logo";
 
 const WrapperTopNav = styled.div`
   background: #2b7de9;
