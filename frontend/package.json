@@ -43,5 +43,10 @@
     "husky": "^3.0.5",
     "prettier": "^1.18.2",
     "styled-components": "^4.3.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/git-cz"
+    }
   }
 }
