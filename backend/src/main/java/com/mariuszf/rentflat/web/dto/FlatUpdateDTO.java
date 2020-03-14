@@ -1,26 +1,28 @@
 package com.mariuszf.rentflat.web.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class FlatUpdateDTO {
 
-    private double cost;
-    private double surface;
+    @NotNull private final Long id;
+    @NotNull private final Double cost;
+    @NotNull private final Double surface;
 
-    public FlatUpdateDTO(int cost, double surface) {
+    public FlatUpdateDTO(@NotNull Long id, @NotNull Double cost, @NotNull Double surface) {
+        this.id = id;
         this.cost = cost;
         this.surface = surface;
     }
 
-    public FlatUpdateDTO() {
+    public Long getId() {
+        return id;
     }
 
-    public double getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public double getSurface() {
+    public Double getSurface() {
         return surface;
     }
-
-
-
 }

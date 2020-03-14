@@ -1,4 +1,12 @@
+FROM gradle:jdk11 AS gradle_build
+
+COPY --chown=gradle:gradle . /src
+
+WORKDIR /src
+RUN gradle build --no-daemon
+
 FROM openjdk:11
-ARG jar_path
-COPY ${jar_path} rent-flat-backend.jar
+
+COPY --from=gradle_build /src/build/libs/*.jar rent-flat-backend.jar
+
 ENTRYPOINT ["java", "-jar", "rent-flat-backend.jar"]

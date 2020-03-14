@@ -1,11 +1,13 @@
 package com.mariuszf.rentflat.web.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class RoomCreateDTO {
 
-    private double surface;
-    private Long flatId;
+    @NotNull private Double surface;
+    @NotNull private Long flatId;
 
-    public RoomCreateDTO(double surface, Long flatId) {
+    public RoomCreateDTO(@NotNull Double surface, @NotNull Long flatId) {
         this.surface = surface;
         this.flatId = flatId;
     }
@@ -13,11 +15,11 @@ public class RoomCreateDTO {
     public RoomCreateDTO() {
     }
 
-    public double getSurface() {
+    public Double getSurface() {
         return surface;
     }
 
     public Long getFlatId() {
-        return this.flatId;
+        return flatId;
     }
 }

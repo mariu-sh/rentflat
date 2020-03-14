@@ -1,35 +1,34 @@
 version: '3'
 services:
   backend:
+    env_file: .env
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        jar_path: $JAR_PATH
     ports:
       - ${BACKEND_PORT}:8080
     networks:
       backend-network:
-        ipv4_address: $BACKEND_IP
+        ipv4_address: ${BACKEND_IP}
     depends_on:
       - database
 
   database:
     image: postgres
     restart: always
-    environment:
-      POSTGRES_USER: $DB_USER
-      POSTGRES_PASSWORD: $DB_PASSWORD
-      POSTGRES_DB: $DB_NAME
+    command: -p ${DB_PORT}
     ports:
-      - ${DB_PORT}:5432
+        - ${DB_PORT}:${DB_PORT}
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     networks:
       backend-network:
-        ipv4_address: $DB_IP
+        ipv4_address: ${DB_IP}
 
 networks:
   backend-network:
     ipam:
       config:
-        - subnet: $SUBNET_RANGE
-
+        - subnet: ${SUBNET_RANGE}

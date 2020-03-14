@@ -1,14 +1,22 @@
 package com.mariuszf.rentflat.web.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class RoomUpdateDTO {
 
-    private double surface;
+    @NotNull private final Long id;
+    @NotNull private final Double surface;
 
-    public RoomUpdateDTO(double surface) {
+    public RoomUpdateDTO(@NotNull Long id, @NotNull Double surface) {
+        this.id = id;
         this.surface = surface;
     }
 
-    public double getSurface() {
+    public Long getId() {
+        return id;
+    }
+
+    public Double getSurface() {
         return surface;
     }
 }
