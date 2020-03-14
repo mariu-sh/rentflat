@@ -1,9 +1,10 @@
-package com.mariuszf.rentflat.buisness;
+package com.mariuszf.rentflat.business;
 
 import com.mariuszf.rentflat.database.FlatEntity;
 import com.mariuszf.rentflat.database.FlatRepository;
 import com.mariuszf.rentflat.database.RoomEntity;
 import com.mariuszf.rentflat.database.RoomRepository;
+import com.mariuszf.rentflat.web.dto.FlatCostDTO;
 import com.mariuszf.rentflat.web.dto.FlatDTO;
 import com.mariuszf.rentflat.web.dto.RoomDTO;
 import com.mariuszf.rentflat.web.exception.FlatNotFoundException;
@@ -31,7 +32,7 @@ public class FlatRoomService {
     }
 
     public List<FlatDTO> getAllFlats() {
-        return flatRepository.findAll()
+        return getAllFlatEntities()
                 .stream()
                 .map(FlatEntity::toDto)
                 .collect(Collectors.toList());
@@ -47,16 +48,16 @@ public class FlatRoomService {
         flatEntity.setSurface(surface);
         return flatRepository.save(flatEntity).toDto();
     }
+
     public void deleteFlatById(Long id){
         flatRepository.delete(getFlatEntityById(id));
     }
-
     public RoomDTO getRoomById(Long id) {
         return getRoomEntityById(id).toDto();
     }
 
     public List<RoomDTO> getAllRooms(){
-        return roomRepository.findAll()
+        return getAllRoomEntities()
                 .stream()
                 .map(RoomEntity::toDto)
                 .collect(Collectors.toList());
@@ -76,6 +77,25 @@ public class FlatRoomService {
 
     public void deleteRoomById(Long id){
         roomRepository.delete(getRoomEntityById(id));
+    }
+
+    public List<FlatCostDTO> getAllFlatsCost() {
+        return getAllFlatEntities()
+                .stream()
+                .map(FlatEntity::toCostDto)
+                .collect(Collectors.toList());
+    }
+
+    public FlatCostDTO getFlatCostById(Long id) {
+        return getFlatEntityById(id).toCostDto();
+    }
+
+    private List<FlatEntity> getAllFlatEntities() {
+        return flatRepository.findAll();
+    }
+
+    private List<RoomEntity> getAllRoomEntities() {
+        return roomRepository.findAll();
     }
 
     private FlatEntity getFlatEntityById(Long id){

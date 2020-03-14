@@ -1,6 +1,6 @@
 package com.mariuszf.rentflat.web;
 
-import com.mariuszf.rentflat.buisness.FlatRoomService;
+import com.mariuszf.rentflat.business.FlatRoomService;
 import com.mariuszf.rentflat.web.dto.RoomCreateDTO;
 import com.mariuszf.rentflat.web.dto.RoomDTO;
 import com.mariuszf.rentflat.web.dto.RoomUpdateDTO;

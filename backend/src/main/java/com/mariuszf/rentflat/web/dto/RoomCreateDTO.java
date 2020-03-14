@@ -4,12 +4,15 @@ import javax.validation.constraints.NotNull;
 
 public class RoomCreateDTO {
 
-    @NotNull private final Double surface;
-    @NotNull private final Long flatId;
+    @NotNull private Double surface;
+    @NotNull private Long flatId;
 
     public RoomCreateDTO(@NotNull Double surface, @NotNull Long flatId) {
         this.surface = surface;
         this.flatId = flatId;
+    }
+
+    public RoomCreateDTO() {
     }
 
     public Double getSurface() {

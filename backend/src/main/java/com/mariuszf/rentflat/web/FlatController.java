@@ -1,6 +1,6 @@
 package com.mariuszf.rentflat.web;
 
-import com.mariuszf.rentflat.buisness.FlatRoomService;
+import com.mariuszf.rentflat.business.FlatRoomService;
 import com.mariuszf.rentflat.web.dto.FlatCreateDTO;
 import com.mariuszf.rentflat.web.dto.FlatDTO;
 import com.mariuszf.rentflat.web.dto.FlatUpdateDTO;
@@ -46,8 +46,5 @@ public class FlatController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id){ flatRoomService.deleteFlatById(id); }
-
-//    @GetMapping("/cost/{id}")
-
 
 }
