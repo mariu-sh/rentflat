@@ -25,6 +25,5 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.postgresql:postgresql'
-	testCompile "org.testcontainers:postgresql:1.12.3"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

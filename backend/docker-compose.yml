@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - ${BACKEND_PORT}:8080
+      - ${BACKEND_PORT}:${BACKEND_PORT}
     networks:
       backend-network:
         ipv4_address: ${BACKEND_IP}
