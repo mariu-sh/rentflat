@@ -1,12 +1,26 @@
 version: '3'
 services:
+
+  api-gateway:
+   env_file: .env
+   build:
+     context: ./apigateway
+     dockerfile: Dockerfile
+   ports:
+   - ${GATEWAY_PORT}:${GATEWAY_PORT}
+   networks:
+     backend-network:
+       ipv4_address: ${GATEWAY_IP}
+
   backend:
     env_file: .env
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
-    ports:
-      - ${BACKEND_PORT}:${BACKEND_PORT}
+    expose:
+      - ${BACKEND_PORT}
+#    ports:
+#      - ${BACKEND_PORT}:${BACKEND_PORT}
     networks:
       backend-network:
         ipv4_address: ${BACKEND_IP}
@@ -31,4 +45,4 @@ networks:
   backend-network:
     ipam:
       config:
-        - subnet: ${SUBNET_RANGE}
+        - subnet: ${SUBNET}
