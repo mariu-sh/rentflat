@@ -93,4 +93,11 @@ public class FlatRoomCRUDService {
     private RoomEntity getRoomEntityById(Long id){
         return roomRepository.findById(id).orElseThrow(RoomNotFoundException::new);
     }
+
+    public List<RoomDTO> getRoomsByFlatId(Long flatId) {
+        return roomRepository.findAllByFlatId(flatId)
+                .stream()
+                .map(RoomEntity::toDto)
+                .collect(Collectors.toList());
+    }
 }

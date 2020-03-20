@@ -5,17 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FlatCost {
+@Getter
+@Setter
+public class RoomCost {
 
     private Long id;
     private Double cost;
     private Double surface;
-    private List<RoomCost> rooms;
 
 }
