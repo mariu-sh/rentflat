@@ -1,7 +1,8 @@
 package com.mariuszf.rentflat.flatroomcrud.database;
 
-import com.mariuszf.rentflat.flatroomcrud.web.dto.RoomCostDTO;
 import com.mariuszf.rentflat.flatroomcrud.web.dto.RoomDTO;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "room")
+@NoArgsConstructor
+@Getter
 public class RoomEntity {
 
     @Id
@@ -31,9 +34,6 @@ public class RoomEntity {
         this.flatEntity = flatEntity;
     }
 
-    public RoomEntity() {
-    }
-
     private Double calculateRentCost(){
         Double flatSurface = flatEntity.getSurface();
         List<RoomEntity> roomEntities = flatEntity.getRoomEntityList();
@@ -42,32 +42,12 @@ public class RoomEntity {
         return (flatEntity.getCost()/flatSurface)*(commonPartSurface/roomsAmount + this.surface);
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public Double getSurface() {
-        return surface;
-    }
-
-    public FlatEntity getFlatEntity() {
-        return flatEntity;
-    }
-
     public void setSurface(Double surface) {
         this.surface = surface;
     }
 
     public RoomDTO toDto(){
         return new RoomDTO(id, uuid, surface, flatEntity.getId());
-    }
-
-    public RoomCostDTO toCostDto(){
-        return new RoomCostDTO(id, uuid, calculateRentCost());
     }
 
     @Override

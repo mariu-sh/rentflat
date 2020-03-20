@@ -4,7 +4,6 @@ import com.mariuszf.rentflat.flatroomcrud.database.FlatEntity;
 import com.mariuszf.rentflat.flatroomcrud.database.FlatRepository;
 import com.mariuszf.rentflat.flatroomcrud.database.RoomEntity;
 import com.mariuszf.rentflat.flatroomcrud.database.RoomRepository;
-import com.mariuszf.rentflat.flatroomcrud.web.dto.FlatCostDTO;
 import com.mariuszf.rentflat.flatroomcrud.web.dto.FlatDTO;
 import com.mariuszf.rentflat.flatroomcrud.web.exception.FlatNotFoundException;
 import com.mariuszf.rentflat.flatroomcrud.web.exception.RoomNotFoundException;
@@ -77,17 +76,6 @@ public class FlatRoomCRUDService {
 
     public void deleteRoomById(Long id){
         roomRepository.delete(getRoomEntityById(id));
-    }
-
-    public List<FlatCostDTO> getAllFlatsCost() {
-        return getAllFlatEntities()
-                .stream()
-                .map(FlatEntity::toCostDto)
-                .collect(Collectors.toList());
-    }
-
-    public FlatCostDTO getFlatCostById(Long id) {
-        return getFlatEntityById(id).toCostDto();
     }
 
     private List<FlatEntity> getAllFlatEntities() {

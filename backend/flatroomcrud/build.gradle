@@ -26,5 +26,7 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.postgresql:postgresql'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok:1.18.12'
+	annotationProcessor 'org.projectlombok:lombok:1.18.12'
 	testImplementation'org.springframework.boot:spring-boot-starter-test'
 }

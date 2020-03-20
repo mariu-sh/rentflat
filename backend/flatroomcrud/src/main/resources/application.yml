@@ -1,5 +1,5 @@
 server:
-  port: ${BACKEND_PORT:8081}
+  port: ${FLAT_ROOM_CRUD_PORT:8081}
 spring:
   datasource:
     url: jdbc:postgresql://${DB_IP:0.0.0.0}:${DB_PORT:5432}/${DB_NAME:postgresdb}

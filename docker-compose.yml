@@ -12,18 +12,33 @@ services:
      backend-network:
        ipv4_address: ${GATEWAY_IP}
 
+#  cost-service:
+#    env_file: .env
+#    build:
+#      context: ./backend/costservice
+#      dockerfile: Dockerfile
+#    expose:
+#      - ${COST_SERVICE_PORT}
+#    ports:
+#      - ${COST_SERVICE_PORT}:${COST_SERVICE_PORT}
+#    networks:
+#      backend-network:
+#        ipv4_address: ${COST_SERVICE_PORT}
+#    depends_on:
+#      - flat-room-crud
+
   flat-room-crud:
     env_file: .env
     build:
       context: ./backend/flatroomcrud
       dockerfile: Dockerfile
     expose:
-      - ${BACKEND_PORT}
-#    ports:
-#      - ${BACKEND_PORT}:${BACKEND_PORT}
+      - ${FLAT_ROOM_CRUD_PORT}
+    ports:
+      - ${FLAT_ROOM_CRUD_PORT}:${FLAT_ROOM_CRUD_PORT}
     networks:
       backend-network:
-        ipv4_address: ${BACKEND_IP}
+        ipv4_address: ${FLAT_ROOM_CRUD_IP}
     depends_on:
       - database
 

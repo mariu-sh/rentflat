@@ -1,18 +1,21 @@
 package com.mariuszf.rentflat.flatroomcrud.database;
 
 
-import com.mariuszf.rentflat.flatroomcrud.web.dto.FlatCostDTO;
 import com.mariuszf.rentflat.flatroomcrud.web.dto.FlatDTO;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "flat")
+@NoArgsConstructor
+@Getter
 public class FlatEntity {
 
     @Id
@@ -37,41 +40,8 @@ public class FlatEntity {
         this.roomEntityList = new ArrayList<>();
     }
 
-    public FlatEntity() {
-    }
-
     public FlatDTO toDto(){
         return new FlatDTO(id, uuid, surface, cost);
-    }
-
-    public FlatCostDTO toCostDto(){
-        return new FlatCostDTO(id,
-                uuid,
-                cost,
-                roomEntityList.stream()
-                        .map(RoomEntity::toCostDto)
-                        .collect(Collectors.toList())
-        );
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public Double getCost() {
-        return cost;
-    }
-
-    public Double getSurface() {
-        return surface;
-    }
-
-    public List<RoomEntity> getRoomEntityList() {
-        return roomEntityList;
     }
 
     public void setSurface(Double surface) {
