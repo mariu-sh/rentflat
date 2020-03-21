@@ -29,7 +29,9 @@ public class CostService {
         double costPerSurface = calculateCostPerSurface(flatCost);
 
         for(RoomCost room: flatCost.getRooms()){
-            room.setCost(costPerSurface*(room.getSurface() + (commonPartSurface/roomsAmount)));
+            room.setCost(RoundValue.COST.getValueWithPrecision(
+                    costPerSurface*(room.getSurface() + (commonPartSurface/roomsAmount))
+            ));
         }
     }
 

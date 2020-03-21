@@ -41,7 +41,7 @@ public class RoomEntity {
     }
 
     public RoomDTO toDto(){
-        return new RoomDTO(id, uuid, surface, flatEntity.getId());
+        return new RoomDTO(id, uuid, surface, flatId);
     }
 
     @Override

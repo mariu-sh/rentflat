@@ -7,6 +7,6 @@ RUN gradle build --no-daemon
 
 FROM openjdk:11-jre-slim
 
-COPY --from=gradle_builder /src/build/libs/*.jar apigateway.jar
+COPY --from=gradle_builder /src/build/libs/*.jar api-gateway.jar
 
-ENTRYPOINT ["java", "-jar", "apigateway.jar"]
+ENTRYPOINT ["java", "-jar", "api-gateway.jar"]

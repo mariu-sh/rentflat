@@ -7,6 +7,6 @@ RUN gradle build --no-daemon
 
 FROM openjdk:11-jre-slim
 
-COPY --from=gradle_build /src/build/libs/*.jar backend.jar
+COPY --from=gradle_build /src/build/libs/*.jar flat-room-service.jar
 
-ENTRYPOINT ["java", "-jar", "backend.jar"]
+ENTRYPOINT ["java", "-jar", "flat-room-service.jar"]
