@@ -15,20 +15,20 @@ import java.util.List;
 public class CostDataAccessImpl implements CostDataAccess {
 
     @Value("${rent-flat.flat-room-crud.ip}")
-    private String flatRoomCrudIP;
+    private String flatRoomIP;
 
     @Value("${rent-flat.flat-room-crud.port}")
-    private String flatRoomCrudPort;
+    private String flatRoomPort;
 
     @Override
     public FlatCost getFlatCostById(Long id) {
-        String url = "http://" + flatRoomCrudIP + ":" + flatRoomCrudPort + "/flat/" + id;
+        String url = "http://" + flatRoomIP + ":" + flatRoomPort + "/flat/" + id;
         return new RestTemplate().getForObject(url, FlatCost.class);
     }
 
     @Override
     public List<RoomCost> getRoomsByFlatId(Long id) {
-        String url = "http://" + flatRoomCrudIP + ":" + flatRoomCrudPort + "/flat/" + id + "/rooms";
+        String url = "http://" + flatRoomIP + ":" + flatRoomPort + "/room?flatId=" + id;
         RoomCost[] rooms = new RestTemplate().getForObject(url, RoomCost[].class);
         if (rooms != null) {
             return Arrays.asList(rooms);

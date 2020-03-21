@@ -1,4 +1,4 @@
-package com.mariuszf.rentflat.flatroomcrud.database;
+package com.mariuszf.rentflat.flatroomservice.database;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

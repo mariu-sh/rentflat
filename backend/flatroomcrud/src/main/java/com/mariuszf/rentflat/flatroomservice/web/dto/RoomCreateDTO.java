@@ -1,4 +1,4 @@
-package com.mariuszf.rentflat.flatroomcrud.web.dto;
+package com.mariuszf.rentflat.flatroomservice.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FlatCreateDTO {
-    @NotNull private Double cost;
+public class RoomCreateDTO {
     @NotNull private Double surface;
+    @NotNull private Long flatId;
 }

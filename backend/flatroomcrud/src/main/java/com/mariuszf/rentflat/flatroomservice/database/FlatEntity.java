@@ -1,8 +1,7 @@
-package com.mariuszf.rentflat.flatroomcrud.database;
+package com.mariuszf.rentflat.flatroomservice.database;
 
 
-import com.mariuszf.rentflat.flatroomcrud.web.dto.FlatDTO;
-import lombok.AllArgsConstructor;
+import com.mariuszf.rentflat.flatroomservice.web.dto.FlatDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

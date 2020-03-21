@@ -2,6 +2,9 @@ server:
   port: ${GATEWAY_PORT:8080}
 zuul:
   routes:
-    flat-room-crud:
+    flat-room-service:
       path: /api/v1/**
       url: http://${FLAT_ROOM_CRUD_IP:0.0.0.0}:${FLAT_ROOM_CRUD_PORT:8081}/
+    cost-service:
+      path: /api/v1/**
+      url: http://${COST_SERVICE_IP:0.0.0.0}:${COST_SERVICE_PORT:8085}/

@@ -1,4 +1,4 @@
-package com.mariuszf.rentflat.flatroomcrud.web.dto;
+package com.mariuszf.rentflat.flatroomservice.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

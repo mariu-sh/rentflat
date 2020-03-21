@@ -1,10 +1,10 @@
-package com.mariuszf.rentflat.flatroomcrud;
+package com.mariuszf.rentflat.flatroomservice;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class FlatRoomCRUDApplication {
+public class FlatRoomServiceApplication {
 
 	@Test
 	public void contextLoads(){}

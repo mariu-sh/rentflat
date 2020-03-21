@@ -1,13 +1,13 @@
-package com.mariuszf.rentflat.flatroomcrud;
+package com.mariuszf.rentflat.flatroomservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FlatRoomCRUDApplication {
+public class FlatRoomServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FlatRoomCRUDApplication.class, args);
+		SpringApplication.run(FlatRoomServiceApplication.class, args);
 	}
 
 }

@@ -1,11 +1,10 @@
-package com.mariuszf.rentflat.flatroomcrud.database;
+package com.mariuszf.rentflat.flatroomservice.database;
 
-import com.mariuszf.rentflat.flatroomcrud.web.dto.RoomDTO;
+import com.mariuszf.rentflat.flatroomservice.web.dto.RoomDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -26,20 +25,15 @@ public class RoomEntity {
     private Double surface;
 
     @ManyToOne
-    @JoinColumn(name = "flat_id")
+    @JoinColumn(name = "flat_id", insertable = false, updatable = false)
     private FlatEntity flatEntity;
 
-    public RoomEntity(Double surface, FlatEntity flatEntity) {
-        this.surface = surface;
-        this.flatEntity = flatEntity;
-    }
+    @Column(name = "flat_id")
+    private Long flatId;
 
-    private Double calculateRentCost(){
-        Double flatSurface = flatEntity.getSurface();
-        List<RoomEntity> roomEntities = flatEntity.getRoomEntityList();
-        Integer roomsAmount = roomEntities.size();
-        Double commonPartSurface = flatSurface - roomEntities.stream().mapToDouble(RoomEntity::getSurface).sum();
-        return (flatEntity.getCost()/flatSurface)*(commonPartSurface/roomsAmount + this.surface);
+    public RoomEntity(Double surface, Long flatId) {
+        this.surface = surface;
+        this.flatId = flatId;
     }
 
     public void setSurface(Double surface) {
