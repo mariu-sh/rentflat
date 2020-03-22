@@ -23,7 +23,7 @@ services:
       - ${COST_SERVICE_PORT}:${COST_SERVICE_PORT}
     networks:
       backend-network:
-        ipv4_address: ${COST_SERVICE_PORT}
+        ipv4_address: ${COST_SERVICE_IP}
     depends_on:
       - flat-room-service
 
