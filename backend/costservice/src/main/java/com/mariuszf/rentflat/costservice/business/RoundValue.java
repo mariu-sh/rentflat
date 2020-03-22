@@ -14,7 +14,7 @@ public enum RoundValue {
     private Integer precision;
     private RoundingMode roundingMode;
 
-    public Double getValueWithPrecision(Double value){
+    public Double roundValue(Double value){
         return new BigDecimal(value).setScale(precision, roundingMode).doubleValue();
     }
 }
