@@ -1,24 +1,39 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
+import './Sidebar.scss';
 
-import "./Sidebar.scss";
+export interface IMenuInterface {
+  menuState: boolean;
+}
 
-const Wrapper = styled.nav`
-  background: #f3f3f3;
-  width: 13%;
-
-  @media (max-width: 800px) {
-    background: black;
+class Sidebar extends React.Component<{}, IMenuInterface> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      menuState: true
+    };
   }
-`;
 
-function Sidebar() {
-  return (
-    <Wrapper>
-      <p className="text-color font-big">nav</p>
-    </Wrapper>
-  );
+  handleMenu = (): void => {
+    this.setState({
+      menuState: !this.state.menuState
+    });
+  };
+
+  render() {
+    const { menuState } = this.state;
+    return (
+      <div>
+        <nav
+          className={menuState ? 'menu-nav--show' : 'menu-nav--hide'}
+          onClick={this.handleMenu}
+        >
+          <p className="text-color font-big">dupa</p>
+        </nav>
+        <p onClick={this.handleMenu}>click</p>
+      </div>
+    );
+  }
 }
 
 export default Sidebar;

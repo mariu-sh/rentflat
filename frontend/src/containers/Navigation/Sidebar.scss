@@ -5,3 +5,12 @@
 .font-big {
   font-size: 3rem;
 }
+
+.menu-nav {
+  &--show {
+    display: block;
+  }
+  &--hide {
+    display: none;
+  }
+}
