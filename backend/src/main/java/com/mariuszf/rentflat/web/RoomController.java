@@ -1,55 +1,52 @@
 package com.mariuszf.rentflat.web;
 
-import com.mariuszf.rentflat.buisness.FlatRoomService;
+import com.mariuszf.rentflat.business.FlatRoomService;
 import com.mariuszf.rentflat.web.dto.RoomCreateDTO;
-import com.mariuszf.rentflat.web.dto.RoomCostDTO;
 import com.mariuszf.rentflat.web.dto.RoomDTO;
 import com.mariuszf.rentflat.web.dto.RoomUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/room")
 public class RoomController {
 
-    @Autowired
     private FlatRoomService flatRoomService;
 
-
-    @PostMapping
-    public RoomDTO createRoom(@RequestBody RoomCreateDTO roomCreateDTO) {
-        return flatRoomService.createRoom(roomCreateDTO);
+    @Autowired
+    public RoomController(FlatRoomService flatRoomService) {
+        this.flatRoomService = flatRoomService;
     }
 
     @GetMapping("/{id}")
-    public RoomDTO getRoomById(@PathVariable long id) {
+    public RoomDTO getById(@PathVariable Long id){
         return flatRoomService.getRoomById(id);
     }
 
     @GetMapping
-    public List<RoomDTO> getRooms() {
-        return flatRoomService.getRooms();
+    public List<RoomDTO> getAll(){
+        return flatRoomService.getAllRooms();
     }
 
-    @PutMapping("/{id}")
-    public RoomDTO updateRoomById(@PathVariable Long id, @RequestBody RoomUpdateDTO roomUpdateDTO) {
-        return flatRoomService.updateRoomById(id, roomUpdateDTO);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public RoomDTO create(@Valid @RequestBody RoomCreateDTO roomCreateDTO){
+        return flatRoomService.createRoom(roomCreateDTO.getSurface(), roomCreateDTO.getFlatId());
+    }
+
+    @PutMapping
+    public RoomDTO update(@Valid @RequestBody RoomUpdateDTO roomUpdateDTO){
+        return flatRoomService.updateRoomById(roomUpdateDTO.getId(), roomUpdateDTO.getSurface());
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRoomById(@PathVariable Long id) {
-         flatRoomService.deleteRoomById(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id){
+        flatRoomService.deleteRoomById(id);
     }
 
-    @GetMapping("/cost")
-    public List<RoomCostDTO> getRoomsCost() {
-        return flatRoomService.getRoomsCost();
-    }
-
-    @GetMapping("/{id}/cost")
-    public RoomCostDTO getRoomCostById(@PathVariable Long id) {
-        return flatRoomService.getRoomCostDTOById(id);
-    }
 }

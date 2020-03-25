@@ -1,0 +1,48 @@
+version: '3'
+services:
+
+  api-gateway:
+   env_file: .env
+   build:
+     context: ./apigateway
+     dockerfile: Dockerfile
+   ports:
+   - ${GATEWAY_PORT}:${GATEWAY_PORT}
+   networks:
+     backend-network:
+       ipv4_address: ${GATEWAY_IP}
+
+  backend:
+    env_file: .env
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    expose:
+      - ${BACKEND_PORT}
+#    ports:
+#      - ${BACKEND_PORT}:${BACKEND_PORT}
+    networks:
+      backend-network:
+        ipv4_address: ${BACKEND_IP}
+    depends_on:
+      - database
+
+  database:
+    image: postgres
+    restart: always
+    command: -p ${DB_PORT}
+    ports:
+        - ${DB_PORT}:${DB_PORT}
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    networks:
+      backend-network:
+        ipv4_address: ${DB_IP}
+
+networks:
+  backend-network:
+    ipam:
+      config:
+        - subnet: ${SUBNET}

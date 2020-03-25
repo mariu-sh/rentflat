@@ -1,23 +1,28 @@
 package com.mariuszf.rentflat.web.dto;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import javax.validation.constraints.NotNull;
 
 public class RoomCostDTO {
 
-    private final long id;
-    private final BigDecimal cost;
+    @NotNull private final Long id;
+    @NotNull private final String uuid;
+    @NotNull private final Double cost;
 
-    public RoomCostDTO(long id, double cost) {
+    public RoomCostDTO(@NotNull Long id, @NotNull String uuid, @NotNull Double cost) {
         this.id = id;
-        this.cost = new BigDecimal(cost).setScale(2, RoundingMode.CEILING);
+        this.uuid = uuid;
+        this.cost = cost;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public BigDecimal getCost() {
+    public String getUuid() {
+        return uuid;
+    }
+
+    public Double getCost() {
         return cost;
     }
 }

@@ -1,23 +1,32 @@
 package com.mariuszf.rentflat.web.dto;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 public class RoomDTO {
 
-    private final long id;
-    private final BigDecimal surface;
+    private final Long id;
+    private final String uuid;
+    private final Double surface;
+    private final Long flatId;
 
-    public RoomDTO(long id, double surface) {
+    public RoomDTO(Long id, String uuid, Double surface, Long flatId) {
         this.id = id;
-        this.surface = new BigDecimal(surface).setScale(2, RoundingMode.CEILING);
+        this.uuid = uuid;
+        this.surface = surface;
+        this.flatId = flatId;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public BigDecimal getSurface() {
+    public String getUuid() {
+        return uuid;
+    }
+
+    public Double getSurface() {
         return surface;
+    }
+
+    public Long getFlatId() {
+        return flatId;
     }
 }

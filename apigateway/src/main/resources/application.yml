@@ -1,0 +1,7 @@
+server:
+  port: ${GATEWAY_PORT:8080}
+zuul:
+  routes:
+    flat-manager:
+      path: /api/v1/**
+      url: http://${BACKEND_IP:0.0.0.0}:${BACKEND_PORT:8081}/
