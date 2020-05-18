@@ -3,12 +3,30 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  background: darkgreen;
-  width: 87%;
+  background: white;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const BoxWrapper = styled.div`
+  border: 1px solid black;
+  width: 20%;
+  height: 250px;
+  margin: 8px 16px;
 `;
 
 function Content() {
-  return <Wrapper>content</Wrapper>;
+  return (
+    <Wrapper>
+      <BoxWrapper>1</BoxWrapper>
+      <BoxWrapper>2</BoxWrapper>
+      <BoxWrapper>3</BoxWrapper>
+      <BoxWrapper>4</BoxWrapper>
+      <BoxWrapper>5</BoxWrapper>
+      <BoxWrapper>6</BoxWrapper>
+    </Wrapper>
+  );
 }
 
 export default Content;

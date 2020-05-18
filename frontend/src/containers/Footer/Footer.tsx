@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const FooterWrapper = styled.div`
   background: red;
-  height: 5vh;
+  min-height: 15%;
 `;
 
 function Footer() {
