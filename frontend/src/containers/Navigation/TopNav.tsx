@@ -1,21 +1,35 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
-import Logo from "../../components/organisms/Navigation/Logo";
+import styled from 'styled-components';
 
 const WrapperTopNav = styled.div`
-  background: #2b7de9;
-  color: white;
+  background: #ececec;
+  color: black;
   width: 100%;
-  height: 10vh;
   position: relative;
+  box-shadow: 3px 5px 50px 3px #696969;
+`;
+
+const TopNavWrapper = styled.ul`
+  display: flex;
+  list-style-type: none;
+  margin-top: 0;
+  padding-left: 0;
+`;
+
+const ListElement = styled.li`
+  border: 3px solid black; /* for test */
+  margin: 8px 16px;
 `;
 
 function TopNav() {
   return (
     <WrapperTopNav>
-      <Logo />
-      topbar nav
+      <TopNavWrapper>
+        <ListElement>abcd</ListElement>
+        <ListElement>abcd</ListElement>
+        <ListElement>abcd</ListElement>
+      </TopNavWrapper>
     </WrapperTopNav>
   );
 }
