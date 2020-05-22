@@ -1,8 +1,10 @@
 {
   "extends": ["airbnb", "prettier", "prettier/react"],
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "env": {
-    "jest": true
+    "jest": true,
+    "browser": true,
+    "es6": true
   },
   "globals": {
     "document": true
@@ -16,14 +18,23 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".js"]
+        "extensions": [".js", ".tsx"]
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
       }
     ]
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["./src"],
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }

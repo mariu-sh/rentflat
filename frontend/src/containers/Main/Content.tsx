@@ -7,13 +7,15 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  margin-top: 32px;
+  min-height: calc(90vh - 32px);
 `;
 
 const BoxWrapper = styled.div`
   border: 1px solid black;
   width: 20%;
   height: 250px;
-  margin: 8px 16px;
+  margin: 16px;
 `;
 
 function Content() {
