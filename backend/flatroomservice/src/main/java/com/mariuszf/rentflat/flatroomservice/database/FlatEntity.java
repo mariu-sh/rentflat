@@ -2,6 +2,7 @@ package com.mariuszf.rentflat.flatroomservice.database;
 
 
 import com.mariuszf.rentflat.flatroomservice.web.dto.FlatDTO;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

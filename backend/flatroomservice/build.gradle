@@ -1,19 +1,27 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:2.2.2.RELEASE'
+	}
+}
+
 plugins {
-	id 'org.springframework.boot' version '2.2.0.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'org.springframework.boot' version '2.3.0.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
 }
 
-apply plugin: 'io.spring.dependency-management'
+apply plugin: 'spring-cloud-contract'
 
 group = 'com.mariuszf.rentflat'
-version = '0.1.0'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
-	developmentOnly
-	runtimeClasspath {
-		extendsFrom developmentOnly
+	compileOnly {
+		extendsFrom annotationProcessor
 	}
 }
 
@@ -21,12 +29,35 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('springCloudVersion', "Hoxton.SR4")
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.flywaydb:flyway-core'
-	implementation 'org.postgresql:postgresql'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok:1.18.12'
-	annotationProcessor 'org.projectlombok:lombok:1.18.12'
-	testImplementation'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.flywaydb:flyway-core'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testCompile 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+contracts {
+	targetFramework = org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5
+}
+
+test {
+	useJUnitPlatform()
 }
