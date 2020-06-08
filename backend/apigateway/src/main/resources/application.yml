@@ -1,0 +1,10 @@
+server:
+  port: ${GATEWAY_PORT:8080}
+zuul:
+  routes:
+    flat-room-service:
+      path: /api/v1/flatroomservice/**
+      url: http://${FLAT_ROOM_SERVICE_IP:0.0.0.0}:${FLAT_ROOM_SERVICE_PORT:8081}/
+    cost-service:
+      path: /api/v1/cost/**
+      url: http://${COST_SERVICE_IP:0.0.0.0}:${COST_SERVICE_PORT:8085}/

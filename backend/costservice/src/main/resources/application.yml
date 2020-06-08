@@ -1,0 +1,6 @@
+server:
+  port: ${COST_SERVICE_PORT:8085}
+rent-flat:
+  flat-room-crud:
+    ip: ${FLAT_ROOM_SERVICE_IP:localhost}
+    port: ${FLAT_ROOM_SERVICE_PORT:8081}

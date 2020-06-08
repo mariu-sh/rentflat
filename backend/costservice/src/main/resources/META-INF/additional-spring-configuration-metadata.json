@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "rent-flat.flat-room-crud.ip",
+      "type": "java.lang.String",
+      "description": "IP address for FlatRoomCrudApp."
+    },
+    {
+      "name": "rent-flat.flat-room-crud.port",
+      "type": "java.lang.String",
+      "description": "IP address for FlatRoomCrudApp."
+    }
+  ] }
