@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @RestController
@@ -24,7 +23,7 @@ public class CostController {
     }
 
     @GetMapping("/flat/{id}")
-    public FlatCostDTO getFlatCostById(@Valid @PathVariable Long id){
+    public FlatCostDTO getFlatCostById(@PathVariable Long id){
         return toCostDto(costService.getFlatCostById(id));
     }
 
