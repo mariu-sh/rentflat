@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import './Sidebar.scss';
+import "./Sidebar.scss";
 
 export interface IMenuInterface {
   menuState: boolean;
@@ -16,7 +16,7 @@ class Sidebar extends React.Component<{}, IMenuInterface> {
 
   handleMenu = (): void => {
     this.setState({
-      menuState: !this.state.menuState
+      menuState: !this.state.menuState,
     });
   };
 
